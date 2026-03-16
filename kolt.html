@@ -629,6 +629,7 @@
         };
 
         function createModal(message, type = 'alert', onConfirm = null, onCancel = null) {
+            // oncancel should be the default if user clicks outside the modal or presses escape, focus should be on confirm
             const existingModal = document.getElementById('customModal');
             if (existingModal) {
                 existingModal.remove();
@@ -670,32 +671,54 @@
             buttonContainer.style.justifyContent = 'center';
             buttonContainer.style.gap = '10px';
 
+            function dismiss() {
+                modal.remove();
+                document.removeEventListener('keydown', handleKeyDownModal);
+            }
+
+            function handleKeyDownModal(e) {
+                if (e.key === 'Escape') {
+                    dismiss();
+                }
+            }
+
+            // Click outside modal content to cancel
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    dismiss();
+                }
+            });
+
+            document.addEventListener('keydown', handleKeyDownModal);
+
             if (type === 'alert') {
                 const okButton = document.createElement('button');
                 okButton.textContent = 'OK';
-                okButton.onclick = () => modal.remove();
+                okButton.onclick = () => dismiss();
                 buttonContainer.appendChild(okButton);
+                modalContent.appendChild(buttonContainer);
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                okButton.focus();
             } else if (type === 'confirm') {
                 const confirmButton = document.createElement('button');
                 confirmButton.textContent = 'Confirm';
                 confirmButton.onclick = () => {
+                    dismiss(false);
                     if (onConfirm) onConfirm();
-                    modal.remove();
                 };
                 buttonContainer.appendChild(confirmButton);
 
                 const cancelButton = document.createElement('button');
                 cancelButton.textContent = 'Cancel';
-                cancelButton.onclick = () => {
-                    if (onCancel) onCancel();
-                    modal.remove();
-                };
+                cancelButton.onclick = () => dismiss(true);
                 buttonContainer.appendChild(cancelButton);
-            }
 
-            modalContent.appendChild(buttonContainer);
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
+                modalContent.appendChild(buttonContainer);
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                confirmButton.focus();
+            }
         }
 
         function showCustomAlert(message) {
