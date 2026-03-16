@@ -908,7 +908,7 @@
                             dbStatusMessage.textContent = "Database loaded from browser storage.";
                         }
                         dbStatusMessage.style.color = 'green';
-                        runBorrowerQueryButton.disabled = false;
+                        runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
                         console.log("Database successfully loaded and parsed.");
                     } else {
                         dbStatusMessage.textContent = "No database loaded. Please upload a .db file.";
@@ -1002,6 +1002,12 @@
                             const tr = document.createElement('tr');
                             row.forEach(cell => {
                                 const td = document.createElement('td');
+                                if (cell === row[0]) {
+                                    tr.addEventListener('click', (e) => {
+                                        document.getElementById('pat_card').value = cell;
+                                        document.getElementById('bar_ckout').focus();
+                                    });
+                                }
                                 td.textContent = cell;
                                 tr.appendChild(td);
                             });
@@ -1010,6 +1016,12 @@
                         table.appendChild(tbody);
                         queryResultOutput.appendChild(table);
                         queryResultContainer.style.display = 'block';
+
+                        // if there's only one result, we also populate the checkout card number field and focus the barcode field for convenience
+                        if (res[0].values.length === 1) {
+                            document.getElementById('pat_card').value = res[0].values[0][0];
+                            document.getElementById('bar_ckout').focus();
+                        }
                     } else {
                         queryResultEmptyMessage.style.display = 'block';
                         queryResultContainer.style.display = 'block';
@@ -1036,25 +1048,28 @@
                 }
             });
 
-            runBorrowerQueryButton.addEventListener('click', executeBorrowerQuery); 
+            runBorrowerQueryButton.addEventListener('click', executeBorrowerQuery);
 
-			borrowerFirstNameInput.addEventListener('keydown', function(event) {
-			if (event.key === 'Enter') {			
-				executeBorrowerQuery();
-				}
-			});
+            borrowerFirstNameInput.addEventListener('keydown', function (event) {
+                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
+                if (event.key === 'Enter') {
+                    executeBorrowerQuery();
+                }
+            });
 
-			borrowerSurnameInput.addEventListener('keydown', function(event) {
-			if (event.key === 'Enter') {			
-				executeBorrowerQuery();
-				}
-			});
-			
-			borrowerCardNumberInput.addEventListener('keydown', function(event) {
-			if (event.key === 'Enter') {			
-				executeBorrowerQuery();
-				}
-			});
+            borrowerSurnameInput.addEventListener('keydown', function (event) {
+                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
+                if (event.key === 'Enter') {
+                    executeBorrowerQuery();
+                }
+            });
+
+            borrowerCardNumberInput.addEventListener('keydown', function (event) {
+                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
+                if (event.key === 'Enter') {
+                    executeBorrowerQuery();
+                }
+            });
 
             clearResultsButton.addEventListener('click', () => {
                 queryResultOutput.innerHTML = '';
