@@ -77,6 +77,28 @@
             outline-offset: 2px;
         }
 
+        .btn-confirm {
+            border: 1px solid #408540;
+            background-color: #e7f5e7;
+            color: #408540;
+        }
+
+        .btn-confirm:hover {
+            background-color: #408540 !important;
+            color: #ffffff;
+        }
+
+        .btn-danger {
+            border: 1px solid #b42318;
+            background-color: #fff5f5;
+            color: #b42318;
+        }
+
+        .btn-danger:hover {
+            background-color: #b42318;
+            color: #ffffff;
+        }
+
         .clear {
             clear: both;
         }
@@ -329,8 +351,9 @@
         }
 
         /* Error Message Styling */
-        .red {
-            border: 1px solid red;
+        .error-panel {
+            border: 1px solid #d92d20;
+            background-color: #fff5f5;
         }
 
         #errorMessage {
@@ -425,10 +448,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        #customModal button:hover {
-            background-color: #e0e0e0;
-        }
     </style>
 </head>
 
@@ -458,9 +477,8 @@
                 <div id="stage"></div>
             </div>
             <div class="card" style="border:0px;">
-                <button onclick="app.save()">Save</button>
-                <button onclick="app.download()">Download data (.koc)</button>
-                <button onclick="app.clear()" class="red">Clear</button><br><br>
+                <button onclick="app.download()">Download Data (.koc)</button>
+                <button onclick="app.clear()" class="btn-danger">Clear Data</button><br><br>
                 <span style="clear: both; font-size: 16px;">*** To upload the .koc file:
                     <ul>
                         <li>Log-in to Koha through the staff interface and click on "Circulation."</li>
@@ -522,7 +540,7 @@
 
                 <button id="clearResultsButton" style="display: none;">Clear Search Results</button>
 
-                <div id="errorMessage" class="red" style="display: none; padding: 10px; margin-top: 10px;">
+                <div id="errorMessage" class="error-panel" style="display: none;">
                     <p class="red_t" style="font-weight: bold;">Error:</p>
                     <p id="errorText" class="red_t"></p>
                 </div>
@@ -602,7 +620,6 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-
             },
             clear: function () {
                 showCustomConfirmation("Delete local data?", () => {
@@ -709,6 +726,7 @@
                     dismiss(false);
                     if (onConfirm) onConfirm();
                 };
+                confirmButton.classList.add('btn-confirm');
                 buttonContainer.appendChild(confirmButton);
 
                 const cancelButton = document.createElement('button');
