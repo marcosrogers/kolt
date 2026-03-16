@@ -1,7 +1,7 @@
 <!--
  * kolt v0.1
  * Created by Kendall Purser
- * Modified by Samuel Sowanick
+ * Modified by Samuel Sowanick and Mark Rogers
  * for the Bonneville County Library District
  * and the Library Consortium of Eastern Idaho
  *
@@ -21,26 +21,34 @@
  * You should have received a copy of the GNU General Public License
  * along with kolt. If not, see <https://www.gnu.org/licenses/>.
  -->
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koha Offline Library Tool</title>
-    <link href="data:image/x-icon;base64,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" rel="icon" type="image/x-icon" />
+    <link
+        href="data:image/x-icon;base64,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"
+        rel="icon" type="image/x-icon" />
     <style type="text/css">
-        html, body {
+        html,
+        body {
             height: 100%;
             margin: 0;
             padding: 0;
         }
+
         body {
             display: flex;
             min-height: 100vh;
             flex-direction: column;
         }
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
             margin: 0px;
             width: auto;
             color: white;
@@ -48,25 +56,36 @@
             padding-left: 10px;
             line-height: 50px;
         }
+
         p {
             margin-left: 10px;
         }
+
         button {
             padding: 5px;
             border-radius: 3px;
             cursor: pointer;
             border: 1px solid black;
         }
+
         button:hover {
             background-color: #4D4D4D;
             color: white;
         }
+
+        button:focus {
+            outline: 2px solid #408540;
+            outline-offset: 2px;
+        }
+
         .clear {
             clear: both;
         }
+
         .red_t {
             color: red;
         }
+
         .green_t {
             color: green;
         }
@@ -80,11 +99,13 @@
             line-height: 50px;
             margin-bottom: 10px;
         }
+
         .page-header img {
             margin-right: 10px;
             width: 35px;
             height: 35px;
         }
+
         .page-header h1 {
             margin: 0;
             background-color: transparent;
@@ -94,41 +115,41 @@
 
         .main-content-wrapper {
             display: flex;
-            flex-grow: 1; 
+            flex-grow: 1;
             width: 100%;
             margin: 0;
             box-sizing: border-box;
-            overflow: hidden; 
+            overflow: hidden;
         }
 
         #koha-panel {
-            flex: 0 0 40%; 
+            flex: 0 0 40%;
             min-width: 300px;
             box-sizing: border-box;
             padding: 10px;
-            overflow: auto; 
+            overflow: auto;
         }
 
         #borrower-panel {
-            flex: 1 1 auto; 
+            flex: 1 1 auto;
             min-width: 250px;
             box-sizing: border-box;
             padding: 10px;
-            border-left: 1px solid #ccc; 
+            border-left: 1px solid #ccc;
             display: flex;
             flex-direction: column;
-            overflow: auto; 
+            overflow: auto;
         }
 
         .resizer {
-            width: 8px; 
-            cursor: ew-resize; 
-            background-color: #ccc; 
-            flex-shrink: 0; 
+            width: 8px;
+            cursor: ew-resize;
+            background-color: #ccc;
+            flex-shrink: 0;
         }
 
         .resizer:hover {
-            background-color: #999; 
+            background-color: #999;
         }
 
         .resizer.is-dragging {
@@ -146,16 +167,20 @@
             .main-content-wrapper {
                 flex-direction: column;
             }
-            #koha-panel, #borrower-panel {
+
+            #koha-panel,
+            #borrower-panel {
                 flex: none;
                 width: 100%;
                 border-left: none;
             }
+
             #borrower-panel {
                 border-top: 1px solid #ccc;
             }
+
             .resizer {
-                display: none; 
+                display: none;
             }
         }
 
@@ -164,6 +189,7 @@
             margin: 10px 0;
             box-sizing: border-box;
         }
+
         #koha-panel #stage {
             width: auto;
             height: 250px;
@@ -184,6 +210,7 @@
             margin-bottom: 10px;
             cursor: default;
         }
+
         #borrower-header-static h1 {
             margin: 0;
             background-color: transparent;
@@ -211,7 +238,9 @@
             height: 0;
         }
 
-        input[type="file"], input[type="text"], input[type="tel"] { 
+        input[type="file"],
+        input[type="text"],
+        input[type="tel"] {
             display: block;
             width: calc(100% - 20px);
             margin: 10px;
@@ -220,6 +249,7 @@
             border-radius: 3px;
             box-sizing: border-box;
         }
+
         textarea {
             display: block;
             width: calc(100% - 20px);
@@ -244,6 +274,7 @@
             justify-content: center;
             align-items: center;
         }
+
         #loadingIndicator svg {
             animation: spin 1s linear infinite;
             height: 20px;
@@ -252,9 +283,15 @@
             vertical-align: middle;
             margin-right: 5px;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Table specific styling */
@@ -265,28 +302,35 @@
             text-align: left;
             table-layout: fixed;
         }
-        .query-result-table th, .query-result-table td {
+
+        .query-result-table th,
+        .query-result-table td {
             padding: 8px;
             border: 1px solid #ddd;
             word-wrap: break-word;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .query-result-table th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
+
         .query-result-table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .query-result-table tr:hover {
+
+        .query-result-table tr:hover:has(td) {
             background-color: #f1f1f1;
+            cursor: pointer;
         }
 
         /* Error Message Styling */
         .red {
             border: 1px solid red;
         }
+
         #errorMessage {
             padding: 10px;
             margin: 10px;
@@ -308,11 +352,13 @@
             align-items: flex-end;
             padding: 10px;
         }
+
         .borrower-search-inputs input {
             flex-grow: 1;
             min-width: 150px;
             margin: 0;
         }
+
         .borrower-search-inputs button {
             padding: 5px 15px;
             height: 31px;
@@ -330,16 +376,20 @@
             .main-content-wrapper {
                 flex-direction: column;
             }
-            #koha-panel, #borrower-panel {
+
+            #koha-panel,
+            #borrower-panel {
                 flex: none;
                 width: 100%;
                 border-left: none;
             }
+
             #borrower-panel {
                 border-top: 1px solid #ccc;
             }
+
             .resizer {
-                display: none; 
+                display: none;
             }
         }
 
@@ -349,21 +399,23 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-        #customModal > div {
+
+        #customModal>div {
             background-color: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
             max-width: 400px;
             width: 90%;
         }
+
         #customModal button {
             padding: 8px 15px;
             margin: 0 5px;
@@ -371,25 +423,32 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         #customModal button:hover {
             background-color: #e0e0e0;
         }
     </style>
 </head>
+
 <body>
-  <h1><img alt="Koha logo" style="float: left; width: 35px; margin: 8px;" src="data:image/x-icon;base64,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" />Koha Offline Library Tool</h1>
+    <h1><img alt="Koha logo" style="float: left; width: 35px; margin: 8px;"
+            src="data:image/x-icon;base64,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" />Koha
+        Offline Library Tool</h1>
 
     <div class="main-content-wrapper">
         <div id="koha-panel">
             <div class="card">
                 <h2>Checkin</h2>
                 <p>
-                    Barcode: <input type="tel" id="bar_ckin" onchange="app.checkin()" />
+                    <label for="bar_ckin">Item Barcode:</label> <input type="tel" id="bar_ckin"
+                        onchange="app.checkin()" />
                 </p>
                 <h2>Checkout</h2>
                 <p>
-                    Patron Card: <input type="tel" id="pat_card" /><br /><br />
-                    Barcode: <input type="tel" id="bar_ckout" onchange="app.checkout()" /><br /><br />
+                    <label for="pat_card">Patron Card:</label> <input type="tel" id="pat_card" />
+                    <br>
+                    <label for="bar_ckout">Item Barcode:</label> <input type="tel" id="bar_ckout"
+                        onchange="app.checkout()" /><br><br>
                 </p>
             </div>
             <div class="card">
@@ -399,14 +458,17 @@
             <div class="card" style="border:0px;">
                 <button onclick="app.save()">Save</button>
                 <button onclick="app.download()">Download data (.koc)</button>
-                <button onclick="app.clear()" class="red">Clear</button><br /><br />
+                <button onclick="app.clear()" class="red">Clear</button><br><br>
                 <span style="clear: both; font-size: 16px;">*** To upload the .koc file:
-                <ul>
-                    <li>Log-in to Koha through the staff interface and click on "Circulation."
-                    </li><li>Click on "Upload offline circulation file (.koc)" at the bottom of the screen.
-                    </li><li>Select your file using the "Choose File" button.
-                    </li><li>Click "Upload File" then "Add to offline circulation queue."
-                    </li><li>From there click "View pending offline circulation actions", then "Check all", then "Process."</li></ul></span><br />
+                    <ul>
+                        <li>Log-in to Koha through the staff interface and click on "Circulation."</li>
+                        <li>Click on "Upload offline circulation file (.koc)" at the bottom of the screen.</li>
+                        <li>Select your file using the "Choose File" button.</li>
+                        <li>Click "Upload File" then "Add to offline circulation queue."</li>
+                        <li>From there click "View pending offline circulation actions", then "Check all", then
+                            "Process."</li>
+                    </ul>
+                </span><br>
             </div>
         </div>
 
@@ -414,37 +476,46 @@
 
         <div id="borrower-panel">
             <div id="borrower-header-static">
-                <h1>Borrower Search</h1>
+                <h2>Borrower Search</h2>
             </div>
             <div class="borrower-content-visible">
                 <div style="padding: 10px;">
-                    <p>Upload your .db file:</p>
+                    <label for="dbFile">Upload your .db file:</label>
                     <input type="file" id="dbFile" accept=".db, .sqlite, .sqlite3">
-                    <p id="dbStatusMessage" style="margin-left: 10px; font-weight: bold; color: #555;">No database loaded.</p>
+                    <p id="dbStatusMessage" style="margin-left: 10px; font-weight: bold; color: #555;">No database
+                        loaded.</p>
                 </div>
 
                 <div id="loadingIndicator" style="display: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="4">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
                     </svg>
                     Processing database...
                 </div>
 
                 <div style="padding: 10px; border-top: 1px solid black; margin-top: 10px;">
-                    <p>Borrower search:</p>
-                    <div class="borrower-search-inputs">
-                        <input type="text" id="borrowerCardNumberInput" placeholder="Card Number">
-                        <input type="text" id="borrowerFirstNameInput" placeholder="First Name">
-                        <input type="text" id="borrowerSurnameInput" placeholder="Last Name">
+                    <fieldset class="borrower-search-inputs">
+                        <legend>Borrower Search</legend>
+                        <label for="borrowerCardNumberInput">Card Number:</label>
+                        <input type="text" id="borrowerCardNumberInput">
+                        <label for="borrowerFirstNameInput">First Name:</label>
+                        <input type="text" id="borrowerFirstNameInput">
+                        <label for="borrowerSurnameInput">Last Name:</label>
+                        <input type="text" id="borrowerSurnameInput">
                         <button id="runBorrowerQueryButton" disabled>Get Borrower Info</button>
-                    </div>
+                    </fieldset>
                 </div>
 
                 <div class="scrollable-area" id="queryResultContainer" style="display: none;">
-                    <h3>Result:</h3>
+                    <h3>Result</h3>
                     <div id="queryResultOutput"></div>
-                    <p id="queryResultEmptyMessage" style="display: none;">Oops. Can't find any patrons with that name. ¯\_(ツ)_/¯ </p>
+                    <p id="queryResultEmptyMessage" style="display: none;">Oops. Can't find any patrons that match..
+                        ¯\_(ツ)_/¯ </p>
                 </div>
 
                 <button id="clearResultsButton" style="display: none;">Clear Search Results</button>
@@ -458,78 +529,79 @@
     </div>
 
     <hr class="clear" />
-		<hr style="width:100%;text-align:left;margin-left:0"><div class="copyright">
-		kolt v0.1 created by Kendall Purser<br />
-		for the <a href="bcld.org" target="_blank">Bonneville County Library District</a><br /> 
-		and the <a href="https://lcei.lili.org/" target="_blank">Library Consortium of Eastern Idaho</a><br />
-		Modified by Sam Sowanick<br />
-		Copyright &copy; 2025
-	</div>
-    </br />
-    </br />
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <div class="copyright">
+        kolt v0.1 created by Kendall Purser<br>
+        for the <a href="bcld.org" target="_blank">Bonneville County Library District</a><br>
+        and the <a href="https://lcei.lili.org/" target="_blank">Library Consortium of Eastern Idaho</a><br>
+        Modified by Sam Sowanick, Mark Rogers<br>
+        Copyright &copy; 2026
+    </div>
+    <br>
+    <br>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <script>
-  const app = {
-  header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.1\n",
-  data: "",
-  data2: [],
-  get: function (id_in) {
-      return document.getElementById(id_in);
-  },
-  init: function () {
-    if(localStorage.getItem("kolt_data")) { 
-      app.data = localStorage.getItem("kolt_data");
-    } else {
-      app.data = app.header;
-    }
-    app.get("bar_ckin").focus();
-    setInterval(app.ui, 1000);
-  },
-  checkout: function () {
-    // date, issue, pat_card, item_barcode
-    app.data = app.data + app.get_date() + "\tissue\t" + app.get("pat_card").value + "\t" + app.get("bar_ckout").value + "\n";
-    app.get("bar_ckout").value = "";
-    app.get("bar_ckout").focus();
-    
-  },
-  checkin: function () {
-    // date, return, item_barcode
-    app.data = app.data + app.get_date() + "\treturn\t" + app.get("bar_ckin").value + "\n";
-    app.get("bar_ckin").value = "";
-    app.get("bar_ckin").focus();
-  },
-  get_date: function () {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  },
-  save: function() {
-    localStorage.setItem("kolt_data", app.data);
-  },
-  download: function() {
-    // make file blob and parse string into .koc file format
-    let date_time = new Date().toISOString();
-    date_time = date_time.replace("T", "_");
-    date_time = date_time.replace(":", "-");
-    date_time = date_time.replace(":", ".");
-    date_time = date_time.split(".")[0];
-    const content = app.data;
-    const blob = new Blob([content], {type: 'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "kolt_" + date_time + ".koc"
-    a.style.display = "none"
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-  },
+        const app = {
+            header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.1\n",
+            data: "",
+            data2: [],
+            get: function (id_in) {
+                return document.getElementById(id_in);
+            },
+            init: function () {
+                if (localStorage.getItem("kolt_data")) {
+                    app.data = localStorage.getItem("kolt_data");
+                } else {
+                    app.data = app.header;
+                }
+                app.get("bar_ckin").focus();
+                setInterval(app.ui, 1000);
+            },
+            checkout: function () {
+                // date, issue, pat_card, item_barcode
+                app.data = app.data + app.get_date() + "\tissue\t" + app.get("pat_card").value + "\t" + app.get("bar_ckout").value + "\n";
+                app.get("bar_ckout").value = "";
+                app.get("bar_ckout").focus();
+
+            },
+            checkin: function () {
+                // date, return, item_barcode
+                app.data = app.data + app.get_date() + "\treturn\t" + app.get("bar_ckin").value + "\n";
+                app.get("bar_ckin").value = "";
+                app.get("bar_ckin").focus();
+            },
+            get_date: function () {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            },
+            save: function () {
+                localStorage.setItem("kolt_data", app.data);
+            },
+            download: function () {
+                // make file blob and parse string into .koc file format
+                let date_time = new Date().toISOString();
+                date_time = date_time.replace("T", "_");
+                date_time = date_time.replace(":", "-");
+                date_time = date_time.replace(":", ".");
+                date_time = date_time.split(".")[0];
+                const content = app.data;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "kolt_" + date_time + ".koc"
+                a.style.display = "none"
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+            },
             clear: function () {
                 showCustomConfirmation("Delete local data?", () => {
                     localStorage.removeItem("kolt_data");
@@ -543,7 +615,7 @@
             ui: function () {
                 app.stage = app.data;
                 while (app.stage.indexOf("\n") != -1) {
-                    app.stage = app.stage.replace("\n", "<br />");
+                    app.stage = app.stage.replace("\n", "<br>");
                 }
                 while (app.stage.indexOf("\treturn\t") != -1) {
                     app.stage = app.stage.replace("\treturn\t", "<span class='green_t'> return </span>");
@@ -859,7 +931,13 @@
                 }
 
                 // Modified query to concatenate firstname and surname
-                let query = "SELECT cardnumber, firstname || ' ' || surname AS name, phone, address||' '||city as address, dateofbirth, IFNULL(total_fines, '0') as fines FROM borrowers WHERE 1=1";
+                let query = "SELECT cardnumber as 'Card Number', " +
+                    "firstname || ' ' || surname AS Name, " +
+                    "phone as Phone, " +
+                    "address || ' ' || city as 'Address', " +
+                    "IFNULL(dateofbirth, '') as 'Date of Birth', " +
+                    "IFNULL(total_fines, '0') as Fines " +
+                    "FROM borrowers WHERE 1 = 1";
                 const params = [];
 
                 if (cardNumber) {
@@ -973,4 +1051,5 @@
         });
     </script>
 </body>
+
 </html>
