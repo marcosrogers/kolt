@@ -21,7 +21,6 @@
  * You should have received a copy of the GNU General Public License
  * along with kolt. If not, see <https://www.gnu.org/licenses/>.
  -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -166,13 +165,16 @@
         @media (max-width: 768px) {
             .main-content-wrapper {
                 flex-direction: column;
+                overflow: visible;
             }
 
             #koha-panel,
             #borrower-panel {
                 flex: none;
                 width: 100%;
+                min-width: 0;
                 border-left: none;
+                overflow: visible;
             }
 
             #borrower-panel {
@@ -211,7 +213,7 @@
             cursor: default;
         }
 
-        #borrower-header-static h1 {
+        #borrower-header-static h2 {
             margin: 0;
             background-color: transparent;
             color: white;
