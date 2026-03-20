@@ -1,5 +1,5 @@
 <!--
- * kolt v0.3
+ * kolt v0.4
  * Created by Kendall Purser
  * Modified by Samuel Sowanick and Mark Rogers
  * for the Bonneville County Library District
@@ -279,6 +279,17 @@
             box-sizing: border-box;
         }
 
+        #koha-panel .card>div {
+            margin: 10px;
+        }
+
+        #koha-panel .card .breadcrumb {
+            margin: -5px 10px 20px 10px;
+            font-style: italic;
+            color: #555;
+            height: 12px;
+        }
+
         #koha-panel #stage {
             width: auto;
             height: 250px;
@@ -515,6 +526,7 @@
                     <div>
                         <label for="pat_card">Patron Card:</label> <input type="text" id="pat_card"
                             onkeyup="app.set_bar_ckout()" onchange="app.set_patron_info()" />
+                        <div id="pat_name" class="breadcrumb"></div>
                     </div>
                     <div>
                         <label for="bar_ckout">Item Barcode:</label> <input type="text" id="bar_ckout"
@@ -624,7 +636,7 @@
     <hr class="clear" />
     <hr style="width:100%;text-align:left;margin-left:0">
     <div class="copyright">
-        kolt v0.3 created by Kendall Purser
+        kolt v0.4 created by Kendall Purser
         for the <a href="bcld.org" target="_blank">Bonneville County Library District</a>
         and the <a href="https://lcei.lili.org/" target="_blank">Library Consortium of Eastern Idaho</a>
         Modified by Sam Sowanick and Mark Rogers
@@ -635,12 +647,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <script>
         const app = {
-            header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.3\n",
+            header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.4\n",
             entries: [],
             history: [],
             future: [],
             maxHistory: 100,
             storageKey: "kolt_entries",
+            loadedDb: null,
+            patrons: [],
 
             cloneEntries: function (entries) {
                 return entries.map((e) => ({ ...e }));
@@ -815,6 +829,46 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             },
+
+            find_patron: function (cardnumber) {
+                // Return cached patron name if available
+                if (this.patrons[cardnumber]) {
+                    return this.patrons[cardnumber];
+                }
+
+                query = 'SELECT surname, firstname FROM borrowers WHERE cardnumber = ?';
+
+                if (!this.loadedDb) {
+                    // TODO: this function isn't available from here
+                    displayError("No database loaded. Please upload a .db file first.");
+                    return;
+                }
+
+                try {
+                    const res = this.loadedDb.exec(query, [cardnumber]);
+                    console.log("SQL query result:", res);
+                    if (res.length > 0) {
+                        // Cache the patron info for future lookups
+                        const name = `${res[0].values[0][1]} ${res[0].values[0][0]}`;
+                        this.patrons[cardnumber] = name;
+                        return name;
+                    }
+                    return "No patron found with that card number.";
+                }
+                catch (e) {
+                    console.error("SQL error:", e);
+                    displayError("An SQL error occurred: " + e.message);
+                }
+
+            },
+
+            set_patron_info: function () {
+
+                const patCard = get("pat_card").value.trim();
+                const patNameElem = get("pat_name");
+
+                patNameElem.textContent = "Looking up patron info...";
+                patNameElem.textContent = this.find_patron(patCard);
             },
 
             set_bar_ckout: function () {
@@ -854,7 +908,9 @@
 
                     ['ts', 'type', 'patCard', 'itemBarcode', 'remove'].forEach((field) => {
                         let td = document.createElement("td");
-                        if (field === 'remove') {
+                        if (field === 'patCard' && this.loadedDb && e[field]) {
+                            td.innerText = this.find_patron(e[field]) ?? "Unknown patron with card number: " + e[field];
+                        } else if (field === 'remove') {
                             let removeButton = document.createElement("button");
                             removeButton.textContent = "Remove";
                             removeButton.onclick = () => {
@@ -1065,7 +1121,6 @@
             const clearResultsButton = get('clearResultsButton');
 
             let SQL; // This will hold the sql.js database object
-            let loadedDb = null;
             const DB_NAME = 'BorrowerLookupDB';
             const DB_VERSION = 1;
             const OBJECT_STORE_NAME = 'dbFiles';
@@ -1139,6 +1194,7 @@
                 queryResultEmptyMessage.style.display = 'none';
                 runBorrowerQueryButton.disabled = true;
                 clearResultsButton.style.display = 'none'; // Hide clear button on new load/attempt
+                app.patrons = []; // Clear cached patrons on new load/attempt
 
                 try {
                     // Dynamically load sql-wasm.js if not already loaded
@@ -1170,11 +1226,11 @@
 
                     if (dbArrayBuffer) {
                         const Uints = new Uint8Array(dbArrayBuffer);
-                        loadedDb = new SQL.Database(Uints);
+                        app.loadedDb = new SQL.Database(Uints);
 
                         if (fileArrayBuffer) { // If it was a new upload, save it
                             await saveDbToIndexedDB(fileArrayBuffer);
-                            dbStatusMessage.textContent = "Database uploaded and loaded successfully!";
+                            dbStatusMessage.textContent = "Database loaded successfully from file!";
                         } else {
                             dbStatusMessage.textContent = "Database loaded from browser storage.";
                         }
@@ -1211,7 +1267,7 @@
                 errorMessage.style.display = 'none';
                 clearResultsButton.style.display = 'block';
 
-                if (!loadedDb) {
+                if (!app.loadedDb) {
                     displayError("No database loaded. Please upload a .db file first.");
                     return;
                 }
@@ -1251,7 +1307,7 @@
                 query += " LIMIT 100;"; // Limit results to prevent overwhelming the browser
 
                 try {
-                    const res = loadedDb.exec(query, params);
+                    const res = app.loadedDb.exec(query, params);
 
                     if (res.length > 0) {
                         const table = document.createElement('table');
@@ -1279,6 +1335,7 @@
                                         get('pat_card').value = cell;
                                         // TODO: Maybe should just be part of app.ui();
                                         app.set_bar_ckout();
+                                        app.set_patron_info();
                                         get('bar_ckout').focus();
                                     });
                                 }
