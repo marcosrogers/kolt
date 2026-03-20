@@ -742,6 +742,7 @@
                         itemBarcode
                     });
                 });
+                this.beep("ok");
 
                 get("bar_ckin").value = "";
                 get("bar_ckin").focus();
@@ -760,6 +761,7 @@
                         itemBarcode
                     })
                 });
+                this.beep("ok");
 
                 get("bar_ckout").value = "";
                 get("bar_ckout").focus();
@@ -833,7 +835,7 @@
             find_patron: function (cardnumber) {
                 // Return cached patron name if available
                 if (this.patrons[cardnumber]) {
-                    return this.patrons[cardnumber];
+                    return { name: this.patrons[cardnumber] };
                 }
 
                 query = 'SELECT surname, firstname FROM borrowers WHERE cardnumber = ?';
@@ -851,9 +853,9 @@
                         // Cache the patron info for future lookups
                         const name = `${res[0].values[0][1]} ${res[0].values[0][0]}`;
                         this.patrons[cardnumber] = name;
-                        return name;
+                        return { name: name };
                     }
-                    return "No patron found with that card number.";
+                    return { error: "No patron found with that card number." };
                 }
                 catch (e) {
                     console.error("SQL error:", e);
@@ -864,16 +866,64 @@
 
             set_patron_info: function () {
 
+                if (!app.loadedDb) {
+                    return true;
+                }
+
                 const patCard = get("pat_card").value.trim();
                 const patNameElem = get("pat_name");
 
                 patNameElem.textContent = "Looking up patron info...";
-                patNameElem.textContent = this.find_patron(patCard);
+                const patronInfo = this.find_patron(patCard);
+                if (patronInfo.name) {
+                    patNameElem.textContent = patronInfo.name;
+                    this.beep("ok");
+                    return true;
+                } else {
+                    patNameElem.textContent = patronInfo.error;
+                    this.beep("error");
+                    return false;
+                }
             },
 
             set_bar_ckout: function () {
                 get("bar_ckout").disabled = !get("pat_card").value.trim().length;
             },
+
+            audioCtx: null,
+
+            ensureAudio: function () {
+                if (!this.audioCtx) {
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.audioCtx.state === "suspended") {
+                    this.audioCtx.resume();
+                }
+            },
+
+            beep: function (kind = "ok") {
+                this.ensureAudio();
+
+                const freq = kind === "error" ? 220 : 880;
+                const duration = kind === "error" ? 0.18 : 0.08;
+
+                const osc = this.audioCtx.createOscillator();
+                const gain = this.audioCtx.createGain();
+
+                osc.type = "sine";
+                osc.frequency.value = freq;
+
+                gain.gain.setValueAtTime(0.0001, this.audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.15, this.audioCtx.currentTime + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.audioCtx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(this.audioCtx.destination);
+
+                osc.start();
+                osc.stop(this.audioCtx.currentTime + duration);
+            },
+
 
             ui: function () {
                 const lines = [];
@@ -909,7 +959,8 @@
                     ['ts', 'type', 'patCard', 'itemBarcode', 'remove'].forEach((field) => {
                         let td = document.createElement("td");
                         if (field === 'patCard' && this.loadedDb && e[field]) {
-                            td.innerText = this.find_patron(e[field]) ?? "Unknown patron with card number: " + e[field];
+                            let patron = this.find_patron(e[field]);
+                            td.innerText = patron.name ?? "Unknown patron: " + e[field];
                         } else if (field === 'remove') {
                             let removeButton = document.createElement("button");
                             removeButton.textContent = "Remove";
@@ -1104,6 +1155,8 @@
             });
 
             // --- End Resizable Panels Logic ---
+
+            const patronCardInput = get('pat_card');
 
             const fileInput = get('dbFile');
             const loadingIndicator = get('loadingIndicator');
@@ -1334,9 +1387,10 @@
                                     tr.addEventListener('click', (e) => {
                                         get('pat_card').value = cell;
                                         // TODO: Maybe should just be part of app.ui();
-                                        app.set_bar_ckout();
-                                        app.set_patron_info();
-                                        get('bar_ckout').focus();
+                                        if (app.set_patron_info()) {
+                                            app.set_bar_ckout();
+                                            get('bar_ckout').focus();
+                                        }
                                     });
                                 }
                                 td.textContent = cell;
@@ -1413,6 +1467,20 @@
                 borrowerCardNumberInput.value = '';
                 borrowerFirstNameInput.value = '';
                 borrowerSurnameInput.value = '';
+            });
+
+            // TODO: Add other triggers here
+            patronCardInput.addEventListener('keydown', (event) => {
+                console.log("Patron card input keydown:", event.key);
+                if (event.key === 'Enter') {
+                    if (app.set_patron_info()) {
+                        app.set_bar_ckout();
+                        get('bar_ckout').focus();
+                    } else {
+                        get('bar_ckout').enabled = false;
+                        patronCardInput.select();
+                    }
+                }
             });
 
             // Attempt to load DB from IndexedDB on page load
