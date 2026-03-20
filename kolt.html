@@ -48,12 +48,22 @@
         h1,
         h2,
         h3 {
-            margin: 0px;
+            margin: 0;
             width: auto;
-            color: white;
-            background-color: #408540;
             padding-left: 10px;
             line-height: 50px;
+        }
+
+        h1 {
+            color: white;
+            background-color: #408540;
+        }
+
+        h2,
+        h3 {
+            background-color: transparent;
+            color: #408540;
+            border-bottom: #408540 2px solid;
         }
 
         p {
@@ -279,29 +289,10 @@
             box-sizing: border-box;
         }
 
-        #borrower-header-static {
-            display: flex;
-            align-items: center;
-            background-color: #408540;
-            color: white;
-            padding-left: 10px;
-            line-height: 50px;
-            margin-bottom: 10px;
-            cursor: default;
-        }
-
-        #borrower-header-static h2 {
-            margin: 0;
-            background-color: transparent;
-            color: white;
-            flex-grow: 1;
-        }
-
         .borrower-content-visible {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: #f8f8f8;
         }
 
         .scrollable-area {
@@ -515,17 +506,21 @@
         <div id="koha-panel">
             <div class="card">
                 <h2>Checkin</h2>
-                <p>
-                    <label for="bar_ckin">Item Barcode:</label> <input type="tel" id="bar_ckin"
+                <div>
+                    <label for="bar_ckin">Item Barcode:</label> <input type="text" id="bar_ckin"
                         onchange="app.checkin()" />
-                </p>
+                </div>
                 <h2>Checkout</h2>
-                <p>
-                    <label for="pat_card">Patron Card:</label> <input type="tel" id="pat_card" />
-                    <br>
-                    <label for="bar_ckout">Item Barcode:</label> <input type="tel" id="bar_ckout"
-                        onchange="app.checkout()" /><br><br>
-                </p>
+                <div>
+                    <div>
+                        <label for="pat_card">Patron Card:</label> <input type="text" id="pat_card"
+                            onkeyup="app.set_bar_ckout()" onchange="app.set_patron_info()" />
+                    </div>
+                    <div>
+                        <label for="bar_ckout">Item Barcode:</label> <input type="text" id="bar_ckout"
+                            onchange="app.checkout()" />
+                    </div>
+                </div>
             </div>
             <div class="card">
                 <button id="undoButton" onclick="app.undo()" disabled>Undo</button>
@@ -560,7 +555,7 @@
                 <button onclick="app.clear()" class="btn-danger">Clear Data</button>
                 <br><br>
 
-                <span style="clear: both; font-size: 16px;">*** To upload the .koc file:
+                <div style="font-size: 16px"><strong>To upload the .koc file:</strong>
                     <ul>
                         <li>Log-in to Koha through the staff interface and click on "Circulation."</li>
                         <li>Click on "Upload offline circulation file (.koc)" at the bottom of the screen.</li>
@@ -569,17 +564,15 @@
                         <li>From there click "View pending offline circulation actions", then "Check all", then
                             "Process."</li>
                     </ul>
-                </span><br>
+                </div>
             </div>
         </div>
 
         <div class="resizer" id="dragMe"></div>
 
         <div id="borrower-panel">
-            <div id="borrower-header-static">
+            <div id="borrower-database-load" class="card borrower-content-visible">
                 <h2>Borrower Search</h2>
-            </div>
-            <div class="borrower-content-visible">
                 <div style="padding: 10px;">
                     <label for="dbFile">Upload your .db file:</label>
                     <input type="file" id="dbFile" accept=".db, .sqlite, .sqlite3">
@@ -598,23 +591,22 @@
                     </svg>
                     Processing database...
                 </div>
-
-                <div style="padding: 10px; border-top: 1px solid black; margin-top: 10px;">
-                    <fieldset class="borrower-search-inputs">
-                        <legend>Borrower Search</legend>
-                        <label for="borrowerCardNumberInput">Card Number:</label>
-                        <input type="text" id="borrowerCardNumberInput">
-                        <label for="borrowerFirstNameInput">First Name:</label>
-                        <input type="text" id="borrowerFirstNameInput">
-                        <label for="borrowerSurnameInput">Last Name:</label>
-                        <input type="text" id="borrowerSurnameInput">
-                        <button id="runBorrowerQueryButton" disabled>Get Borrower Info</button>
-                    </fieldset>
+            </div>
+            <div id="borrower-search" class="card" style="display: block;">
+                <h2>Borrower Search</h2>
+                <div class="borrower-search-inputs">
+                    <label for="borrowerCardNumberInput">Card Number:</label>
+                    <input type="text" id="borrowerCardNumberInput">
+                    <label for="borrowerFirstNameInput">First Name:</label>
+                    <input type="text" id="borrowerFirstNameInput">
+                    <label for="borrowerSurnameInput">Last Name:</label>
+                    <input type="text" id="borrowerSurnameInput">
+                    <button id="runBorrowerQueryButton" disabled>Get Borrower Info</button>
                 </div>
 
-                <div class="scrollable-area" id="queryResultContainer" style="display: none;">
-                    <h3>Result</h3>
-                    <div id="queryResultOutput"></div>
+                <div id="queryResultContainer" style="display: none;">
+                    <h3>Results</h3>
+                    <div id="queryResultOutput" class="scrollable-area"></div>
                     <p id="queryResultEmptyMessage" style="display: none;">Oops. Can't find any patrons that match..
                         ¯\_(ツ)_/¯ </p>
                 </div>
