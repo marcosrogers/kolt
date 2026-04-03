@@ -37,9 +37,8 @@
         :root {
             /* = #408540; */
             --default-color-brand: oklch(55% 0.12 144deg);
-            --color-brand: black;
             /* start black, will be overridden by JS to the default brand color on load */
-            /*var(--default-color-brand);*/
+            --color-brand: black;
             --color-brand-bg: oklch(from var(--color-brand) calc(l + 0.41) calc(c * 0.2) h);
             --color-gray-dark: #4D4D4D;
             --color-gray-med-dark: #666;
@@ -1134,9 +1133,7 @@
             },
 
             formatFine: function (value) {
-                console.log(this.settings);
                 let options = { style: 'currency', ...this.settings.fine };
-                console.log(options);
 
                 return new Intl.NumberFormat(this.settings.locale, options).format(value);
             },
@@ -1318,13 +1315,10 @@
 
             /* Settings panel functions */
             applySavedSettingsToForm: function (elementObject = this.settingsElements, settingsObject = this.settings) {
-                console.log("Applying settings to form:", elementObject, settingsObject);
                 Object.entries(elementObject).forEach(([key, element]) => {
                     if (element && typeof element === 'object' && !(element instanceof HTMLElement)) {
-                        console.log(`Recursively applying settings for key: ${key}`);
                         this.applySavedSettingsToForm(element, settingsObject[key]);
                     } else if (element.type === 'checkbox') {
-                        console.log(`Setting checkbox ${key} to`, settingsObject[key]);
                         element.checked = settingsObject[key];
 
                         element.addEventListener('change', (e) => {
@@ -1332,10 +1326,8 @@
                             this.saveSettings();
                         });
                     } else {
-                        console.log(`Setting input ${key} to`, settingsObject[key]);
                         element.value = settingsObject[key] || '';
                         element.addEventListener('input', (e) => {
-                            console.log(`Input changed for ${key}:`, e.target.value);
                             settingsObject[key] = e.target.value;
                             // If the changed setting is a CSS variable, apply the new styles immediately
                             this.applyStyleSettings();
@@ -1373,7 +1365,6 @@
                     force = this.settingsCard.classList.toggle('hidden');
                 } else {
                     // Force value provided, log the intended state
-                    console.debug("Force value provided. Intended settings panel state:", force ? "open" : "closed");
                     this.settingsCard.classList.toggle('hidden', !force);
                 }
                 this.refreshSettingsPanel();
@@ -1382,7 +1373,6 @@
             applyStyleSettings: function () {
                 const rootElement = document.querySelector(':root');
                 Object.entries(this.settings.css).forEach(([key, value]) => {
-                    console.log(value, key);
                     rootElement.style.setProperty('--' + key, value);
                 });
             },
@@ -1424,7 +1414,6 @@
                     if (saved) {
                         try {
                             parsed = JSON.parse(saved);
-                            console.log(`Loaded saved ${key}:`, parsed);
                             // merge objects. For settings, merge with default values, in case what's saved is missing some keys
                             if (key === 'settings') {
                                 this[key] = this.mergeObjects(this[key], parsed, true);
@@ -1577,7 +1566,6 @@
                 searchOnPartialCardNumber: this.settings.searchOnPartialCardNumber,
                 searchAllFields: this.settings.patronCardnumberIncludeName,
             }) {
-                console.log("Finding patron with input:", input, "and options:", options);
                 const { searchOnPartialCardNumber, searchAllFields } = options;
 
                 if (!this.dbIsValid) {
@@ -1591,7 +1579,6 @@
                 let query, searchValues;
 
                 if (searchAllFields) {
-                    console.log("Searching all fields for input:", input);
                     // For future expansion: search by name/surname as well
                     // This would require additional handling to determine which field(s) matched and how to display results, especially if there are multiple matches across different fields
                     let tokens = input.split(/\s+/);
@@ -1605,7 +1592,6 @@
                     query += ' ORDER BY surname, firstname';
 
                 } else {
-                    console.log("Searching only cardnumber for input:", input);
                     query = 'SELECT surname, firstname, cardnumber FROM borrowers WHERE cardnumber LIKE ?';
 
                     if (searchOnPartialCardNumber) {
@@ -1710,7 +1696,6 @@
                 const patronInfo = this.displayPatronInfo();
 
                 let barcodeDisabled = this.checkoutBarcodeInput.disabled;
-                console.debug("Barcode input state before lookup:", barcodeDisabled);
 
                 if (patronInfo === true) {
                     // No DB, enable input unless no barcode yet
@@ -1898,7 +1883,6 @@
                     ORDER BY cardnumber_match DESC, surname_match DESC, firstname_match DESC, surname, firstname`;
                 query += " LIMIT 100;"; // Limit results to prevent overwhelming the browser
 
-                console.log(query);
                 try {
                     const results = app.loadedDb.exec(query, sortFieldParams.concat(clauseParams));
 
@@ -1945,10 +1929,8 @@
                             });
                             tbody.appendChild(tr);
                         });
-                        console.debug("Query executed successfully. Number of results:", results[0].values.length);
-                        console.debug("Class list before update:", table.className);
+
                         table.classList.remove('hidden');
-                        console.debug("Class list after update:", table.className);
 
                         // if there's only one result, we also populate the checkout card number field and focus the barcode field for convenience
                         if (results[0].values.length === 1) {
@@ -2049,34 +2031,6 @@
             },
 
             registerListeners: function () {
-                /*
-                const registerElementListeners = function (elements, settings, ignoreKeys = {}) {
-                    Object.entries(elements).forEach(([key, elem]) => {
-                        console.log("Registering listener for element:", elem);
-                        if (elem && typeof elem === 'object' && !(elem instanceof HTMLElement)) {
-                            registerElementListeners(elem, settings[key], ignoreKeys[key] || {});
-                        } else if (elem instanceof HTMLButtonElement) {
-                            elem.addEventListener('click', (e) => {
-                                settings[key] = e.target.value;
-                                app.saveSettings();
-                            });
-                        } else { // possibly do: if (elem instanceof HTMLInputElement || elem instanceof HTMLSelectElement)
-                            if (parentKey === 'css.') {
-                                elem.addEventListener('input', debounce((e) => {
-                                    settings[key] = e.target.value;
-                                    app.saveSettings();
-                                    app.applyStyleSettings();
-                                }, 300));
-
-                            } else {
-                                elem.addEventListener('input', app.debounce((e) => {
-                                    settings[key] = e.target.value;
-                                    app.saveSettings();
-                                }, 300));
-                            }
-                        }
-                    });
-                } */
                 /* Settings */
                 this.topMenuButton.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -2099,16 +2053,8 @@
                 });
 
                 // Other settings listeners are registered when applying settings to the form at init, via the method
-                // registerElementListeners(this.settingsElements, this.settings);
-                /*
-                Object.entries(this.settingsElements.css).forEach(([key, elem]) => {
-                    console.log("Registering listener for CSS setting:", elem);
-                    elem.addEventListener('input', (e) => {
-                        this.settings.css[key] = e.target.value;
-                        this.applyStyleSettings();
-                    });
-                });
-                */
+                // applySavedSettingsToForm(), which calls addEventListener for each setting input.
+
                 get('reset-color-button').addEventListener('click', () => {
                     const defaultColor = window.getComputedStyle(document.documentElement).getPropertyValue('--default-color-brand');
 
@@ -2124,7 +2070,6 @@
                 */
                 Object.entries(document.querySelectorAll('.open-settings')).forEach(([key, elem]) => {
                     elem.addEventListener('click', (e) => {
-                        console.log("Here");
                         e.preventDefault();
                         e.stopPropagation();
                         this.toggleSettingsPanel(true);
