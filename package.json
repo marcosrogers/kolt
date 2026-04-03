@@ -1,0 +1,26 @@
+{
+  "name": "kolt",
+  "version": "0.5.0",
+  "description": "This tool is a standalone webpage that can create a Koha offline circulation file (.koc) when your internet connection is down.",
+  "main": "kolt.html",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcosrogers/kolt.git"
+  },
+  "keywords": [],
+  "author": "Kendall Purser, Samuel Sowanick, Mark Rogers",
+  "license": "GPL-3.0",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/marcosrogers/kolt/issues"
+  },
+  "homepage": "https://github.com/marcosrogers/kolt#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "http-server": "^14.1.1"
+  }
+}
