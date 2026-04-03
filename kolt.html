@@ -1,5 +1,5 @@
 <!--
- * kolt v0.4
+ * kolt v0.5
  * Created by Kendall Purser
  * Modified by Samuel Sowanick and Mark Rogers
  * for the Bonneville County Library District
@@ -8,6 +8,8 @@
  * Copyright © 2025 Bonneville County Library District and the Library Consortium of Eastern Idaho
  *
  * Copyright © 2025 Samuel Sowanick
+ *
+ * Copyright © 2026 Mark Rogers
  *
  * kolt is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,18 +32,43 @@
     <title>Koha Offline Library Tool</title>
     <link
         href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB9oBDA0jIfLf940AAAYnSURBVHja7d1NbtswGATQyEiPwdPo/ldwFjqGA7AbBzVctP6VRHLeA7Itapoz/KgkzscHAAAAPKy+8lVKOVlCaNw5qHXjL1YyWQLuONnt20EdLAGX5nk+dnD6mg40KYOf8vazCYCNTvqRisxUoDEJOO3tbwuE0NvnFgbBt989A8Bd+Na6+IEjjejEx963CIKPDCgAwSc4BwpA+AnOggIQfIIzoQAEn+BcKADBJzgbCkD4Cc6HAhB8gjOiAISf4Jz4UeBGXHzUFkpZs9lgyIsJQPhBowk/MuPFCD5y44UIP7LjRQg/8vMiDwGFHw2G4JOYIQUg/ATnyBVA+NFcCD+JWVIAwk9wnlwBhB+NhfCTmCkTgPCjrRB+EnNlAhB+3qynvz9oAhB+grNlAhB+gqcAE4DwE5wvE4DwEzwFmACEn+CMmQCEH+2E8JOYMxOA8KOZEH4Ss2YCEH6CKQAwluD0JzFvJgDhxxUA4cdIIvwQlbn4CaCn390GE4DTH5kzAQg/Jk4TgPBjCjABCD8oAMAVwOmP7JkAhB8UAKAAnP4Q+wxA+JE/VwAgrQCc/hBaAMIPiQXgt/zgtpEfAjr9kb/QAhB+lIBnAEBaATj9IbQAhB9cAYB7jPQQ0OmPHIZOAMIPrgBAWgE4/cEEAKQVgNMfEgtgnuejtw9e0/O3AZ3+yGHoBCD84BkAkFYATn8wAQBpBeD0BxMAkFYATn8wAQBpBeD0BxMAEFUA/sAHrKeH3wUw/iOHoROA8INnAEBaATj9wQQARBWAT/uBbbT6XQDjP3LoCgCkFYDTH0wAQFoBOP3BBAAoACCmAIz/YAIA0grA6Q8mAEABAJto4XcBjP/IoAkAUABATAEY/8EEAEQVgM/7h/3t+QTS+A++CwCZSinfqe3j9IcGfg7HBADBFAAoAOM/KABAAQAKAFjPlFgA7v9gAgAUAJBRAH75B9qz5YMI93/YPneuAIACAHYqAOM/mADA/V8BAAoAGLwAfP8fggtgWZZPywxtfAbgtS0eSPgOAGyXN88AAAUA7FwAxn8wAYD7vwIAFACgAMD4P3ABeAAIjfNTevu2vZLEFaCzcN/6evnfa/FHRhlv/F/7P1e9ee9RSjn5nQp7SAGEv1muDgrAFeC9J+v3C+N7K1cRhL+5/2D1xpgKaH+fxUwAV6f9qJvNRIAJ4Dr4y7L8CnxvTQRO/9wCCA6+IlAAuVeAn1Ff+PvaiJgAbHbTgFyZAJ4/9e07BUneBGBTmwYUbUP/UeFXAsLvCmChrSEKwH1fCYTo8bc4e7sC2KyuA8o0dAIQfutLaAHYnNbZ2oUWgE1pvQktAJvRujev549wa/0hoI24Lw8GB9+nB4uK98AVwMbDexG4PgcLCiYAUMqB63KwoHhvTAC7m+f5y9uBQuz/RdTkBQ3gW4MD7dcmJgB/Cw/hH+uEePSLTpRSTk++xyN98a4COG8oxi954fcMwDjlOYDMeAaAEHjdCsDpDyYAcPoHFoDTH0wA9CjsZzcmL+x+NX1Rg1QFYAJweiD8XtxDp4LT3wSgADwDAOFXAIACAKf/+AXg/k/Tkj6cZq0wVgUQocqFCQCEXwEACgCc/grAAtOT1J9O3fohoAIYS5UFEwAIvwLA6Y8CMOrj9DcBgPArAEAB4P7v9FcAIPwKABi/ALSs8d/pbwIA4VcAOP1RAOD0zykAi+70F34TAAi/AsDpjwIQCK/V6Z9TAJNgIPwmACXg9Qm/AkD4iSqAiw9crILiNTn9MxerDvQG1YE3nvCbAHgyOFX4hV8B/P8a4O7s/y38oQtXB74C9LopfbqPCcAbtUawSikn4benLJ4xfxJ8+9cCuutPgm/fWsjcAthr3f0NPyxmg8GaBN9+taC5BbDG+1HtVSyq0do+xcIqAXuUf/u0BAi+RcYUYF9aaJSAPekKAIJv0TEF2Idj83kANvJuzr8ibs1sWJOAvYcJYKDNHfQBKA+Z5/lL+LWwacB+wxuiBOwzXAEyAhAXAg/54O878PHjzycID/nVwUehQRPXgqG+zuWGuxlhzwfsI88AeOX5QKffNpyEH97sfIduddTHFYCwa4J9ogAIKgT7QgEQUgz2AAAAQIbfCOtlTnbM87QAAAAASUVORK5CYII="
-        rel="icon" type="image/x-icon" />
+        rel="icon" type="image/x-icon">
     <style type="text/css">
+        :root {
+            /* = #408540; */
+            --default-color-brand: oklch(55% 0.12 144deg);
+            --color-brand: var(--default-color-brand);
+            --color-brand-bg: oklch(from var(--color-brand) calc(l + 0.41) calc(c * 0.2) h);
+            --color-gray-dark: #4D4D4D;
+            --color-gray-med-dark: #666;
+            --color-gray-med: #999;
+            --color-gray-med-light: #e9e9e9;
+            --color-gray-light: #f9f9f9;
+            --color-border: #ccc;
+            --color-danger: #b42318;
+            --color-danger-bg: #fff5f5;
+            --color-success: #006400;
+            --color-success-bg: #00640020;
+            --color-subtle-text: #555;
+            --control-radius: 5px;
+            --box-radius: 8px;
+        }
+
         html,
         body {
             height: 100%;
             margin: 0;
             padding: 0;
+            /* Same as Koha */
+            font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+                "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
+                "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
 
         body {
             display: flex;
             min-height: 100vh;
+            overflow: hidden;
             flex-direction: column;
         }
 
@@ -51,304 +78,412 @@
             margin: 0;
             width: auto;
             padding-left: 10px;
+            padding-right: 10px;
             line-height: 50px;
         }
 
         h1 {
             color: white;
-            background-color: #408540;
+            mix-blend-mode: difference;
+
+            background-color: var(--color-brand);
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            &>svg {
+
+                display: block;
+                float: left;
+                width: 35px;
+                height: 35px;
+                margin: 8px;
+                color: white;
+            }
         }
 
         h2,
         h3 {
             background-color: transparent;
-            color: #408540;
-            border-bottom: #408540 2px solid;
+            color: var(--color-brand);
+            border-bottom: var(--color-brand) 2px solid;
         }
 
-        p {
-            margin-left: 10px;
-        }
-
-        button {
-            padding: 5px;
-            border-radius: 3px;
-            cursor: pointer;
-            border: 1px solid black;
-        }
-
-        button:hover {
-            background-color: #4D4D4D;
-            color: white;
-        }
-
-        button:focus {
-            outline: 2px solid #408540;
-            outline-offset: 2px;
-        }
-
-        .btn-confirm {
-            border: 1px solid #408540;
-            background-color: #e7f5e7;
-            color: #408540;
-        }
-
-        .btn-confirm:hover {
-            background-color: #408540 !important;
-            color: #ffffff;
-        }
-
-        .btn-danger {
-            border: 1px solid #b42318;
-            background-color: #fff5f5;
-            color: #b42318;
-        }
-
-        .btn-danger:hover {
-            background-color: #b42318;
-            color: #ffffff;
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        .red_t {
-            color: rgb(168, 0, 0);
-        }
-
-        .green_t {
-            color: rgb(0, 100, 0);
-        }
-
-        .page-header {
-            display: flex;
-            align-items: center;
-            background-color: #408540;
-            color: white;
-            padding: 0 10px;
-            line-height: 50px;
-            margin-bottom: 10px;
-        }
-
-        .page-header img {
-            margin-right: 10px;
-            width: 35px;
-            height: 35px;
-        }
-
-        .page-header h1 {
-            margin: 0;
-            background-color: transparent;
-            color: white;
-            flex-grow: 1;
-        }
-
-        .main-content-wrapper {
-            display: flex;
-            flex-grow: 1;
-            width: 100%;
-            margin: 0;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-
-        #koha-panel {
-            flex: 0 0 40%;
-            min-width: 300px;
-            box-sizing: border-box;
-            padding: 10px;
-            overflow: auto;
-        }
-
-        #borrower-panel {
-            flex: 1 1 auto;
-            min-width: 250px;
-            box-sizing: border-box;
-            padding: 10px;
-            border-left: 1px solid #ccc;
-            display: flex;
-            flex-direction: column;
-            overflow: auto;
-        }
-
-        #stage_table table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        #stage_table table thead tr {
-            background-color: #408540;
-            color: white;
-        }
-
-        #stage_table table thead th {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
-
-        #stage_table table tr {
-
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        #stage_table table tr.issue td {
-            background-color: #fff5f5;
-        }
-
-        #stage_table table tr.return td {
-            background-color: #f5fff5;
-        }
-
-        #stage_table table tbody tr:hover td {
-            background-color: #e7e7e7;
-        }
-
-        #stage_table table td {
-            border: 1px solid #ccc;
-            padding: 5px;
-        }
-
-        #stage_file {
-            position: relative;
-            border: 1px solid;
-        }
-
-        #stage_file div {
-            width: calc(100% - 20px);
-            min-height: 72px;
-            height: 288px;
-            white-space: pre;
-            overflow: auto;
-            font-family: monospace;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
-        .resizer {
-            width: 8px;
-            cursor: ew-resize;
-            background-color: #ccc;
-            flex-shrink: 0;
-        }
-
-        .resizer:hover {
-            background-color: #999;
-        }
-
-        .resizer.is-dragging {
-            background-color: #666;
-        }
-
-        body.no-select {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        @media (max-width: 768px) {
-            .main-content-wrapper {
-                flex-direction: column;
-                overflow: visible;
-            }
-
-            #koha-panel,
-            #borrower-panel {
-                flex: none;
-                width: 100%;
-                min-width: 0;
-                border-left: none;
-                overflow: visible;
-            }
-
-            #borrower-panel {
-                border-top: 1px solid #ccc;
-            }
-
-            .resizer {
-                display: none;
-            }
-        }
-
-        #koha-panel .card {
+        /* Sections */
+        .card {
             width: 100%;
             margin: 10px 0;
             box-sizing: border-box;
         }
 
-        #koha-panel .card>div {
+        .card>div {
             margin: 10px;
         }
 
-        #koha-panel .card .breadcrumb {
-            margin: -5px 10px 20px 10px;
+        .card>h2 {
+            margin: 0;
+        }
+
+        .breadcrumb {
+            margin: 2px 0 20px 0;
             font-style: italic;
-            color: #555;
+            color: var(--color-subtle-text);
             height: 12px;
+
+            &.hidden {
+                height: 0;
+                margin-bottom: 10px;
+            }
         }
 
-        #koha-panel #stage {
-            width: auto;
-            height: 250px;
-            border: 1px solid #e7e7e7;
-            margin: auto;
-            overflow-y: scroll;
+        /* Forms */
+        fieldset {
+            border: 1px solid var(--color-border);
+            border-radius: var(--box-radius);
+            margin: 10px 0;
             padding: 10px;
-            box-sizing: border-box;
         }
 
-        .borrower-content-visible {
-            flex-grow: 1;
+        .form-group {
+            container-name: formgroup;
+            container-type: inline-size;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: baseline !important;
+            box-sizing: border-box;
+            column-gap: 4px;
         }
 
-        .scrollable-area {
-            flex-grow: 1;
-            width: auto;
-            border: 1px solid #e7e7e7;
-            margin: 10px;
-            overflow-y: scroll;
-            overflow-x: auto;
-            padding: 10px;
+        .form-group:has(input[type="color"]) {
+            align-items: center !important;
+        }
+
+        .form-group input[type="color"] {
+            width: 32px;
+            height: 32px;
+            align-self: auto !important;
+            border-radius: var(--control-radius);
+        }
+
+        .form-group input[type="color"]+button.reset-color {
+            background-color: var(--default-color-brand);
+            color: white;
+            font-weight: bold;
+            width: 28px;
+            height: 28px;
+            min-width: 0;
+            padding: 0;
+            margin: 2px;
+            outline-offset: 3px;
+            border-radius: calc(var(--control-radius) - 1px);
+        }
+
+        .form-group:has(button):not(:has(input)) {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            padding-right: 10px;
             box-sizing: border-box;
-            min-height: 150px;
-            height: 0;
+            width: 120px;
+            display: block;
+            text-align: right;
+
+            &:has(+input)::after {
+                content: ":";
+            }
+        }
+
+        .form-group input[type="checkbox"] {
+            display: inherit;
+        }
+
+        .form-group input[type="checkbox"]+label {
+            text-align: left;
+            flex-grow: 1;
+            display: inline-block;
+        }
+
+        .form-group input:not([type="checkbox"]):not([type="color"]) {
+            min-width: 200px;
+            display: block;
+        }
+
+        .form-group .breadcrumb {
+            flex-basis: 100%;
+        }
+
+        #settings fieldset div.form-group {
+            margin-bottom: 4px;
+            margin-top: 4px;
+
+            height: fit-content;
+
+            & label:has(+input:not([type="color"])) {
+                text-align: left;
+                width: 100%;
+
+                &::after {
+                    content: "" !important;
+                }
+            }
+
+            & input:not([type="checkbox"]):not([type="color"]) {
+                width: 100%;
+            }
+
+            & input+.breadcrumb {
+                padding-left: 0;
+                margin-bottom: 4px;
+                height: fit-content;
+            }
+        }
+
+        @container formgroup (width < 324px) {
+            .form-group label {
+                text-align: left;
+
+                &::after {
+                    content: "" !important;
+                }
+            }
+
+            input+.breadcrumb {
+                padding-left: 0 !important;
+            }
+        }
+
+        input:not([type="checkbox"]):not([type="color"]),
+        textarea {
+            flex-grow: 2;
+            margin: 4px 0;
+            padding: 5px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--control-radius);
+            box-sizing: border-box;
         }
 
         input[type="file"],
-        input[type="text"],
-        input[type="tel"] {
-            display: block;
-            width: calc(100% - 20px);
-            margin: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
+        input[type="color"] {
+            cursor: pointer;
         }
 
         textarea {
-            display: block;
-            width: calc(100% - 20px);
-            margin: 10px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
             resize: vertical;
         }
 
-        #koha-panel input[type="tel"] {
-            background-color: #f8f8f8;
+        button {
+            padding: 6px 12px;
+            border-radius: var(--control-radius);
+            border: 1px solid var(--color-border);
+            min-width: 80px;
+            margin: 4px 0 4px 0;
         }
 
-        #loadingIndicator {
+        button:hover:not(:disabled),
+        button:focus {
+            background-color: var(--color-gray-med-dark);
+            color: white;
+            cursor: pointer;
+        }
+
+        button:focus,
+        input:focus {
+            outline: 2px solid var(--color-gray-med-dark);
+            outline-offset: 2px;
+        }
+
+        /* More specific forms-related */
+        h2:has(button) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h2:has(button) span:last-child {
+            text-align: right;
+            display: block;
+            column-gap: 4px;
+        }
+
+        @container kohapanel (width < 420px) {
+            h2:has(button) {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                white-space: nowrap;
+                line-height: 1.2;
+                padding-bottom: 2px;
+
+                & span:last-child {
+                    flex: 0 0 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    white-space: normal;
+
+                    & span:last-child button {
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        .breadcrumb {
+            transition:
+                height 0.3s ease;
+        }
+
+        .breadcrumb.hidden {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            display: block !important;
+        }
+
+        input+.breadcrumb {
+            padding-left: 120px;
+        }
+
+        .btn-confirm {
+            border: 1px solid var(--color-brand);
+            background-color: var(--color-brand-bg);
+            color: var(--color-brand);
+
+            &:hover,
+            &:focus {
+                background-color: var(--color-brand);
+                color: var(--color-brand-bg);
+            }
+        }
+
+        .btn-danger {
+            border: 1px solid var(--color-danger);
+            background-color: var(--color-danger-bg);
+            color: var(--color-danger);
+        }
+
+        .btn-danger:focus,
+        .btn-danger:hover,
+        .btn-danger-hover:hover,
+        .btn-danger-hover:focus {
+            background-color: var(--color-danger) !important;
+            color: var(--color-danger-bg) !important;
+            outline-color: var(--color-danger) !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .instructions {
+            font-size: 16px;
+        }
+
+        .text-red,
+        .error {
+            color: var(--color-danger);
+        }
+
+        .text-green,
+        .success {
+            color: var(--color-success);
+        }
+
+        .error-panel {
+            display: block;
+            border: 1px solid var(--color-danger);
+            border-radius: var(--box-radius);
+            background-color: var(--color-danger-bg);
+            color: var(--color-danger);
+            padding: 10px;
+            box-sizing: border-box;
+
+            &::before {
+                content: "Error: ";
+                font-weight: bold;
+            }
+        }
+
+        /** Overall Layout **/
+
+        /* Settings */
+        .topbar-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1200;
+        }
+
+        #top-menu-button {
+            border: 0;
+            background: var(--color-brand);
+            color: #fff;
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--control-radius);
+            line-height: 1;
+            padding: 1px;
+            margin: 0;
+            min-width: 0;
+
+            &:hover,
+            &:focus,
+            &[aria-expanded="true"] {
+                background: var(--color-brand-bg);
+                color: var(--color-brand);
+            }
+
+            &:focus {
+                outline: 2px solid var(--color-brand-bg);
+                outline-offset: 2px;
+            }
+        }
+
+        #settings {
+            background-color: #fff;
+            border: 2px solid var(--color-brand);
+            border-radius: 20px;
+            margin: 0;
+            padding: 0 0 20px 0;
+            position: absolute;
+            right: 5px;
+            top: 50px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px oklch(from black l c h / 0.2);
+            max-width: 400px;
+            z-index: 1300;
+        }
+
+        #settings h2 {
+            margin: 0;
+            margin-bottom: 15px;
+            padding: 10px 20px 0 20px;
+            background-color: var(--color-brand);
+            border-radius: 16px 16px 0 0;
+            color: white;
+        }
+
+        #settings>* {
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+
+        #db-status-message {
+            color: var(--color-subtle-text);
+            font-weight: bold;
+
+            &.success {
+                color: var(--color-success)
+            }
+
+            &.error {
+                color: var(--color-danger)
+            }
+        }
+
+        #loading-indicator {
             text-align: center;
-            color: #408540;
+            color: var(--color-brand);
             font-weight: bold;
             margin-bottom: 10px;
             display: flex;
@@ -356,13 +491,14 @@
             align-items: center;
         }
 
-        #loadingIndicator svg {
+        #loading-indicator svg {
             animation: spin 1s linear infinite;
             height: 20px;
             width: 20px;
             display: inline-block;
             vertical-align: middle;
             margin-right: 5px;
+            color: var(--color-brand);
         }
 
         @keyframes spin {
@@ -375,99 +511,177 @@
             }
         }
 
-        /* Table specific styling */
-        .query-result-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9em;
-            text-align: left;
-            table-layout: fixed;
-        }
-
-        .query-result-table th,
-        .query-result-table td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            word-wrap: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .query-result-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-
-        .query-result-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .query-result-table tr:hover:has(td) {
-            background-color: #f1f1f1;
-            cursor: pointer;
-        }
-
-        /* Error Message Styling */
-        .error-panel {
-            border: 1px solid #d92d20;
-            background-color: #fff5f5;
-        }
-
-        #errorMessage {
-            padding: 10px;
-            margin: 10px;
-            box-sizing: border-box;
-        }
-
-        .copyright {
-            max-width: 300px;
-            margin: 0px auto;
-            text-align: center;
-            font-size: 12px;
-            padding-top: 20px;
-        }
-
-        .borrower-search-inputs {
+        /* Major content panels */
+        .main-content-wrapper {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: flex-end;
-            padding: 10px;
-        }
-
-        .borrower-search-inputs input {
             flex-grow: 1;
-            min-width: 150px;
+            min-height: 0;
+            width: 100%;
             margin: 0;
-        }
-
-        .borrower-search-inputs button {
-            padding: 5px 15px;
-            height: 31px;
             box-sizing: border-box;
-            margin: 0;
+            overflow: hidden;
         }
 
-        #clearResultsButton {
+        .main-panel {
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #koha-panel {
+            container-name: kohapanel;
+            container-type: inline-size;
+            flex: 0 0 40%;
+            min-width: 300px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        #patron-panel {
+            flex: 1 1 auto;
+            min-width: 250px;
+            box-sizing: border-box;
+            border-left: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        /* Data tables */
+        .table-scroll {
+            max-height: 50vh;
+            overflow: auto;
+            border: 1px solid var(--color-border);
+        }
+
+        .table-scroll .data-table thead {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .data-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .data-table thead {
+            width: 100%;
+        }
+
+        .data-table td,
+        .data-table th {
+            padding: 4px 8px;
+            border: 1px solid var(--color-border);
+            border-width: 1px 0;
+            height: 2.2em;
+        }
+
+        .data-table thead tr {
+            background-color: var(--color-brand);
+            color: white;
+        }
+
+        .data-table thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .data-table tbody tr {
+            background-color: oklch(from var(--color-brand-bg) l c h / 0.2);
+
+            &:nth-child(even) {
+                background-color: oklch(from var(--color-brand-bg) l c h / 0.5);
+            }
+
+            &:hover td,
+            &.placeholder td {
+                background-color: var(--color-gray-med-light);
+            }
+        }
+
+        .data-table button {
+            margin-left: auto;
             display: block;
-            width: calc(100% - 20px);
-            margin: 10px;
+        }
+
+        td.issue {
+            background-color: #fff5f5;
+            color: var(--color-danger);
+        }
+
+        td.return {
+            background-color: #f5fff5;
+            color: var(--color-success);
+        }
+
+        /* Raw data view */
+        #stage-file {
+            position: relative;
+            border: 1px solid var(--color-border);
+        }
+
+        #stage-file div {
+            width: 100%;
+            min-height: 72px;
+            height: 288px;
+            white-space: pre;
+            overflow: auto;
+            font-family: monospace;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Resizer */
+        .resizer {
+            width: 8px;
+            cursor: ew-resize;
+            background-color: var(--color-border);
+            flex-shrink: 0;
+
+            &:hover {
+                background-color: var(--color-gray-med);
+            }
+
+            &.is-dragging {
+                background-color: var(--color-gray-med-dark);
+            }
+        }
+
+        body.no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+                overflow-x: hidden;
+                min-height: 100dvh;
+            }
+
             .main-content-wrapper {
+                flex: 1 0 auto;
+                min-height: 0;
                 flex-direction: column;
+                overflow: visible;
+                padding-bottom: 12px;
             }
 
             #koha-panel,
-            #borrower-panel {
+            #patron-panel {
                 flex: none;
                 width: 100%;
+                min-width: 0;
                 border-left: none;
+                overflow: visible;
             }
 
-            #borrower-panel {
-                border-top: 1px solid #ccc;
+            #patron-panel {
+                border-top: 1px solid var(--color-border);
             }
 
             .resizer {
@@ -475,74 +689,200 @@
             }
         }
 
-        #customModal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Patron Search */
+        #query-result-container {
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        #query-result-container p {
+            margin: 10px;
+        }
+
+        #query-result-table th,
+        #query-result-table td {
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #query-result-table tbody tr:hover {
+            cursor: pointer;
+        }
+
+        /* Copyright info */
+        footer {
+            padding: 12px;
+            display: block;
+            width: 100%;
+            border-top: 1px solid var(--color-border);
+            clear: both;
+            margin-top: auto;
+        }
+
+        footer small {
+            text-align: center;
+            font-size: 12px;
+            max-width: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Modal Styling */
+        #custom-modal {
+            padding: 0;
+            border: 0;
+            background: transparent;
+
+            &[open] {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                max-height: none;
+            }
+
+            &::backdrop {
+                background-color: oklch(0 0 0 / 0.5);
+            }
+
+            &>div {
+                background-color: white;
+                padding: 20px;
+                border-radius: var(--box-radius);
+                box-shadow: 0 4px 8px oklch(0 0 0 / 0.2);
+                text-align: center;
+                max-width: 400px;
+                width: 90%;
+            }
+
+            & p {
+                margin-bottom: 20px;
+                font-size: 16px;
+            }
+        }
+
+        #custom-modal-buttons {
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            gap: 10px;
         }
 
-        #customModal>div {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        #customModal button {
+        #custom-modal button {
             padding: 8px 15px;
             margin: 0 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--control-radius);
             cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <h1><img alt="Koha logo" style="float: left; width: 35px; margin: 8px;"
-            src="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB9oBDA0jIfLf940AAAYnSURBVHja7d1NbtswGATQyEiPwdPo/ldwFjqGA7AbBzVctP6VRHLeA7Itapoz/KgkzscHAAAAPKy+8lVKOVlCaNw5qHXjL1YyWQLuONnt20EdLAGX5nk+dnD6mg40KYOf8vazCYCNTvqRisxUoDEJOO3tbwuE0NvnFgbBt989A8Bd+Na6+IEjjejEx963CIKPDCgAwSc4BwpA+AnOggIQfIIzoQAEn+BcKADBJzgbCkD4Cc6HAhB8gjOiAISf4Jz4UeBGXHzUFkpZs9lgyIsJQPhBowk/MuPFCD5y44UIP7LjRQg/8vMiDwGFHw2G4JOYIQUg/ATnyBVA+NFcCD+JWVIAwk9wnlwBhB+NhfCTmCkTgPCjrRB+EnNlAhB+3qynvz9oAhB+grNlAhB+gqcAE4DwE5wvE4DwEzwFmACEn+CMmQCEH+2E8JOYMxOA8KOZEH4Ss2YCEH6CKQAwluD0JzFvJgDhxxUA4cdIIvwQlbn4CaCn390GE4DTH5kzAQg/Jk4TgPBjCjABCD8oAMAVwOmP7JkAhB8UAKAAnP4Q+wxA+JE/VwAgrQCc/hBaAMIPiQXgt/zgtpEfAjr9kb/QAhB+lIBnAEBaATj9IbQAhB9cAYB7jPQQ0OmPHIZOAMIPrgBAWgE4/cEEAKQVgNMfEgtgnuejtw9e0/O3AZ3+yGHoBCD84BkAkFYATn8wAQBpBeD0BxMAkFYATn8wAQBpBeD0BxMAEFUA/sAHrKeH3wUw/iOHoROA8INnAEBaATj9wQQARBWAT/uBbbT6XQDjP3LoCgCkFYDTH0wAQFoBOP3BBAAoACCmAIz/YAIA0grA6Q8mAEABAJto4XcBjP/IoAkAUABATAEY/8EEAEQVgM/7h/3t+QTS+A++CwCZSinfqe3j9IcGfg7HBADBFAAoAOM/KABAAQAKAFjPlFgA7v9gAgAUAJBRAH75B9qz5YMI93/YPneuAIACAHYqAOM/mADA/V8BAAoAGLwAfP8fggtgWZZPywxtfAbgtS0eSPgOAGyXN88AAAUA7FwAxn8wAYD7vwIAFACgAMD4P3ABeAAIjfNTevu2vZLEFaCzcN/6evnfa/FHRhlv/F/7P1e9ee9RSjn5nQp7SAGEv1muDgrAFeC9J+v3C+N7K1cRhL+5/2D1xpgKaH+fxUwAV6f9qJvNRIAJ4Dr4y7L8CnxvTQRO/9wCCA6+IlAAuVeAn1Ff+PvaiJgAbHbTgFyZAJ4/9e07BUneBGBTmwYUbUP/UeFXAsLvCmChrSEKwH1fCYTo8bc4e7sC2KyuA8o0dAIQfutLaAHYnNbZ2oUWgE1pvQktAJvRujev549wa/0hoI24Lw8GB9+nB4uK98AVwMbDexG4PgcLCiYAUMqB63KwoHhvTAC7m+f5y9uBQuz/RdTkBQ3gW4MD7dcmJgB/Cw/hH+uEePSLTpRSTk++xyN98a4COG8oxi954fcMwDjlOYDMeAaAEHjdCsDpDyYAcPoHFoDTH0wA9CjsZzcmL+x+NX1Rg1QFYAJweiD8XtxDp4LT3wSgADwDAOFXAIACAKf/+AXg/k/Tkj6cZq0wVgUQocqFCQCEXwEACgCc/grAAtOT1J9O3fohoAIYS5UFEwAIvwLA6Y8CMOrj9DcBgPArAEAB4P7v9FcAIPwKABi/ALSs8d/pbwIA4VcAOP1RAOD0zykAi+70F34TAAi/AsDpjwIQCK/V6Z9TAJNgIPwmACXg9Qm/AkD4iSqAiw9crILiNTn9MxerDvQG1YE3nvCbAHgyOFX4hV8B/P8a4O7s/y38oQtXB74C9LopfbqPCcAbtUawSikn4benLJ4xfxJ8+9cCuutPgm/fWsjcAthr3f0NPyxmg8GaBN9+taC5BbDG+1HtVSyq0do+xcIqAXuUf/u0BAi+RcYUYF9aaJSAPekKAIJv0TEF2Idj83kANvJuzr8ibs1sWJOAvYcJYKDNHfQBKA+Z5/lL+LWwacB+wxuiBOwzXAEyAhAXAg/54O878PHjzycID/nVwUehQRPXgqG+zuWGuxlhzwfsI88AeOX5QKffNpyEH97sfIduddTHFYCwa4J9ogAIKgT7QgEQUgz2AAAAQIbfCOtlTnbM87QAAAAASUVORK5CYII=" />Koha
-        Offline Library Tool</h1>
+    <svg hidden aria-hidden="true" focusable="false" class="hidden">
+        <symbol id="koha-logo">
+            <g style="stroke-width:0.1">
+                <path
+                    d="M 93.035919,12.9298 C 105.82234,5.81604 120.33511,1.7411 134.95119,1.13774 142.6497,1.5097 150.39426,2.37196 157.63268,5.46 c 14.27507,5.34614 26.08657,16.28205 33.47027,29.51693 8.17992,13.53419 11.80069,29.27488 13.51557,44.84356 3.78038,51.55484 -15.3129,103.33382 -47.88361,142.96314 -12.81362,12.79645 -28.59325,23.6672 -46.69515,26.99803 -14.978176,2.14404 -31.19569,-1.06154 -43.241084,-10.51166 -7.460419,-5.64074 -10.478394,-15.43199 -9.852524,-24.49249 6.622238,9.35092 17.456009,15.82846 29.033432,16.09088 10.482223,0.50025 20.894376,-4.28937 27.950636,-11.93358 11.84444,-12.7875 13.03389,-34.36049 1.91654,-47.96585 -5.08524,-5.90526 -11,-11.20161 -17.878025,-14.9364 -6.903687,-4.07287 -14.879578,-5.84799 -22.742722,-6.90381 -14.547149,-0.93083 -29.625397,1.70596 -42.434097,8.86221 C 20.375305,165.02291 11.25116,177.55054 8.407715,191.53576 5.486984,202.39462 6.548477,213.75497 7.702728,224.78628 2.939728,212.17037 1.02951,198.75602 0,185.38122 l 0,-9.75518 C 1.675018,126.72758 22.040985,79.02405 54.811737,42.87649 66.07251,31.20949 78.635376,20.52531 93.035919,12.9298 z"
+                    id="path14" />
 
+            </g>
+        </symbol>
+    </svg>
+    <h1><svg width="35px" height="35" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+            <use href="#koha-logo" />
+        </svg>Koha Offline Library Tool</h1>
+    <div class="topbar-menu">
+        <button id="top-menu-button" aria-label="Open settings" aria-expanded="false">⚙</button>
+    </div>
+    <div id="settings" class="hidden">
+        <h2>Settings</h2>
+        <fieldset>
+            <legend>Database</legend>
+            <div>
+                <label for="db-file">Upload your .db file</label>
+                <input type="file" id="db-file" accept=".db, .sqlite, .sqlite3">
+                <div id="db-status-message">No database loaded.</div>
+            </div>
+
+            <div id="loading-indicator" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="4">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                Processing database...
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Formatting</legend>
+            <div class="form-group">
+                <label for="locale-input">Locale (for formatting)</label>
+                <input id="locale-input">
+                <p class="breadcrumb"><a href="https://simplelocalize.io/data/locales/" target="_blank">View available
+                        locales</a></p>
+            </div>
+            <div class="form-group">
+                <label for="currency-input">Currency</label>
+                <input id="currency-input" placeholder="USD">
+                <p class="breadcrumb">Used for formatting fines. Defaults to USD.</p>
+            </div>
+            <div class="form-group">
+                <label for="fine-decimal-places-input">Fine Decimal Places</label>
+                <input id="fine-decimal-places-input" type="number" min="0" max="4" placeholder="2">
+                <p class="breadcrumb">Number of decimal places to show for fines. Defaults to 2.</p>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Other Settings</legend>
+            <div class="form-group">
+                <input type="checkbox" id="partial-patron-cardnumber-search"><label
+                    for="partial-patron-cardnumber-search">Patron live search (requires database).</label>
+            </div>
+            <div class="form-group">
+                <label for="color-brand-picker">Brand Color</label>
+                <input type="color" id="color-brand-picker">
+                <button id="reset-color-button" class="reset-color">↺</button>
+            </div>
+        </fieldset>
+        <div class="error-panel hidden">
+        </div>
+    </div>
     <div class="main-content-wrapper">
-        <div id="koha-panel">
+        <div id="koha-panel" class="main-panel">
             <div class="card">
-                <h2>Checkin</h2>
-                <div>
-                    <label for="bar_ckin">Item Barcode:</label> <input type="text" id="bar_ckin"
-                        onchange="app.checkin()" />
+                <h2>Check In</h2>
+                <div class="form-group">
+                    <label for="checkin-barcode">Item Barcode</label>
+                    <input type="text" id="checkin-barcode" placeholder="Scan a barcode to check in">
                 </div>
-                <h2>Checkout</h2>
+                <h2>Check Out</h2>
                 <div>
-                    <div>
-                        <label for="pat_card">Patron Card:</label> <input type="text" id="pat_card"
-                            onkeyup="app.set_bar_ckout()" onchange="app.set_patron_info()" />
-                        <div id="pat_name" class="breadcrumb"></div>
+                    <div class="form-group">
+                        <label for="patron-cardnumber">Patron Card</label>
+                        <input type="text" id="patron-cardnumber" placeholder="Enter patron card number">
+                        <div id="patron-name" class="breadcrumb hidden"></div>
                     </div>
-                    <div>
-                        <label for="bar_ckout">Item Barcode:</label> <input type="text" id="bar_ckout"
-                            onchange="app.checkout()" />
+                    <div class="form-group">
+                        <label for="checkout-barcode">Item Barcode</label>
+                        <input type="text" id="checkout-barcode" placeholder="Enter item barcode" disabled>
                     </div>
                 </div>
             </div>
             <div class="card">
-                <button id="undoButton" onclick="app.undo()" disabled>Undo</button>
-                <button id="redoButton" onclick="app.redo()" disabled>Redo</button>
-                <br><br>
-            </div>
-            <div class="card">
-                <h2>Results</h2>
-                <div id="stage_table">
-                    <table>
+                <h2>Pending Circulations
+                    <span>
+                        <button id="undo-button" disabled>Undo</button>
+                        <button id="redo-button" disabled>Redo</button>
+                    </span>
+                </h2>
+                <div id="stage-table" class="table-scroll">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Timestamp</th>
@@ -553,21 +893,26 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="placeholder">
+                                <td colspan="5"><em>Get started by entering an item for check-in or entering a patron
+                                        cardnumber and
+                                        checkout item above.</em></td>
+                            </tr>
                         </tbody>
                     </table>
-                    <br>
                 </div>
-                <div id="stage_file" style="display: none;">
+                <div id="stage-file" class="hidden">
                     <div aria-label="Raw .koc data"></div>
                 </div>
             </div>
             <div class="card">
-                <button onclick="app.download()">Download Data (.koc)</button>
-                <button id="stage_toggle" onclick="app.toggleStageView()">Show raw data</button>
-                <button onclick="app.clear()" class="btn-danger">Clear Data</button>
-                <br><br>
+                <div class="form-group">
+                    <button id="download-button">Download Data (.koc)</button>
+                    <button id="toggle-stage-button">Show Raw Data</button>
+                    <button id="clear-data-button" class="btn-danger">Clear Data</button>
+                </div>
 
-                <div style="font-size: 16px"><strong>To upload the .koc file:</strong>
+                <div class="instructions"><strong>To upload the .koc file:</strong>
                     <ul>
                         <li>Log-in to Koha through the staff interface and click on "Circulation."</li>
                         <li>Click on "Upload offline circulation file (.koc)" at the bottom of the screen.</li>
@@ -580,82 +925,167 @@
             </div>
         </div>
 
-        <div class="resizer" id="dragMe"></div>
+        <div class="resizer" id="drag-me"></div>
 
-        <div id="borrower-panel">
-            <div id="borrower-database-load" class="card borrower-content-visible">
-                <h2>Borrower Search</h2>
-                <div style="padding: 10px;">
-                    <label for="dbFile">Upload your .db file:</label>
-                    <input type="file" id="dbFile" accept=".db, .sqlite, .sqlite3">
-                    <p id="dbStatusMessage" style="margin-left: 10px; font-weight: bold; color: #555;">No database
-                        loaded.</p>
+        <div id="patron-panel" class="main-panel hidden">
+            <div id="patron-search" class="card">
+                <h2>Patron Search</h2>
+                <div id="patron-search-db-unavailable" class="hidden">
+                    <p>You must load a .db file (generated by the
+                        <code>create_koc_db.pl</code> cron job) to be able to search for
+                        patrons offline. Load the file in <a href="#" class="open-settings">Settings</a>.
+                    </p>
+                </div>
+                <div id="patron-search-inputs">
+                    <div class="form-group">
+                        <label for="patron-search-cardnumber">Card Number</label>
+                        <input type="text" id="patron-search-cardnumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="patron-search-first-name">First Name</label>
+                        <input type="text" id="patron-search-first-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="patron-search-surname">Surname</label>
+                        <input type="text" id="patron-search-surname">
+                    </div>
+                    <div class="form-group">
+                        <button id="run-patron-query-button" disabled>Get Patron Info</button>
+                    </div>
                 </div>
 
-                <div id="loadingIndicator" style="display: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        stroke-width="4">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
-                    </svg>
-                    Processing database...
-                </div>
-            </div>
-            <div id="borrower-search" class="card" style="display: block;">
-                <h2>Borrower Search</h2>
-                <div class="borrower-search-inputs">
-                    <label for="borrowerCardNumberInput">Card Number:</label>
-                    <input type="text" id="borrowerCardNumberInput">
-                    <label for="borrowerFirstNameInput">First Name:</label>
-                    <input type="text" id="borrowerFirstNameInput">
-                    <label for="borrowerSurnameInput">Last Name:</label>
-                    <input type="text" id="borrowerSurnameInput">
-                    <button id="runBorrowerQueryButton" disabled>Get Borrower Info</button>
-                </div>
-
-                <div id="queryResultContainer" style="display: none;">
-                    <h3>Results</h3>
-                    <div id="queryResultOutput" class="scrollable-area"></div>
-                    <p id="queryResultEmptyMessage" style="display: none;">Oops. Can't find any patrons that match..
+                <div id="query-result-container" class="card hidden table-scroll">
+                    <table id="query-result-table" class="data-table hidden">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                    <div id="query-result-output"></div>
+                    <p id="query-result-empty-message" class="hidden">Oops. Can't find any patrons that match..
                         ¯\_(ツ)_/¯ </p>
                 </div>
 
-                <button id="clearResultsButton" style="display: none;">Clear Search Results</button>
+                <div class="form-group">
+                    <button id="clear-results-button" class="hidden">Clear Search Results</button>
+                </div>
 
-                <div id="errorMessage" class="error-panel" style="display: none;">
-                    <p class="red_t" style="font-weight: bold;">Error:</p>
-                    <p id="errorText" class="red_t"></p>
+                <div class="error-panel hidden">
                 </div>
             </div>
         </div>
     </div>
-
-    <hr class="clear" />
-    <hr style="width:100%;text-align:left;margin-left:0">
-    <div class="copyright">
-        kolt v0.4 created by Kendall Purser
-        for the <a href="bcld.org" target="_blank">Bonneville County Library District</a>
-        and the <a href="https://lcei.lili.org/" target="_blank">Library Consortium of Eastern Idaho</a>
-        Modified by Sam Sowanick and Mark Rogers
-        &copy; 2026
-    </div>
-    <br>
-    <br>
+    <footer>
+        <small>
+            kolt v0.5 created by Kendall Purser
+            for the <a href="bcld.org" target="_blank">Bonneville County Library District</a>
+            and the <a href="https://lcei.lili.org/" target="_blank">Library Consortium of Eastern Idaho</a>
+            Modified by Sam Sowanick and Mark Rogers
+            &copy; 2025-2026
+        </small>
+    </footer>
+    <dialog id="custom-modal" closedby="any" aria-modal="true" role="dialog">
+        <div>
+            <p id="custom-modal-message"></p>
+            <div id="custom-modal-buttons">
+            </div>
+        </div>
+    </dialog>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
     <script>
         const app = {
-            header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.4\n",
+            settings: {
+                searchOnPartialCardNumber: false,
+                css: {
+                    'color-brand': window.getComputedStyle(document.documentElement).getPropertyValue('--default-color-brand'),
+                },
+                locale: navigator.language || 'en-US',
+                fine: {
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                },
+            },
+            /** These settings should eventually go in the above array, but for now it's easier to keep them
+             *  separate since they aren't actually user-configurable settings. They are merged into the
+             * settings object on load, but keeping them separate here makes it easier to avoid accidentally
+             * overwriting them when saving/loading settings from localStorage */
+            nonUserSettingsDefaults: {
+                /* These are settings that are required for the app to function, but aren't actually set by the user.
+                   They are merged into the main settings object on load, but are kept separate here to avoid accidentally
+                   overwriting them when saving/loading user settings from localStorage */
+
+            },
+            header: "Version=1.0\tGenerator=kolt\tGeneratorVersion=0.5\n",
             entries: [],
             history: [],
             future: [],
             maxHistory: 100,
-            storageKey: "kolt_entries",
+            entriesKey: "kolt_entries",
+            settingsKey: "kolt_settings",
             loadedDb: null,
             patrons: [],
 
+            SQL: null, // This will hold the sql.js database object
+            DB_NAME: 'BorrowerLookupDB',
+            DB_VERSION: 1,
+            OBJECT_STORE_NAME: 'dbFiles',
+            DB_FILE_KEY: 'borrowerDbFile',
+
+
+            /**** Get DOM elements ****/
+
+            /* Settings elements */
+            topMenuButton: get('top-menu-button'),
+            settingsCard: get('settings'),
+            dbFileInput: get('db-file'),
+            dbStatusMessage: get('db-status-message'),
+            loadingIndicator: get('loading-indicator'),
+
+            settingsElements: {
+                searchOnPartialCardNumber: get('partial-patron-cardnumber-search'),
+                css: {
+                    'color-brand': get('color-brand-picker'),
+                },
+                locale: get('locale-input'),
+                fine: {
+                    currency: get('currency-input'),
+                    minimumFractionDigits: get('fine-decimal-places-input'),
+                    maximumFractionDigits: get('fine-decimal-places-input'),
+                },
+            },
+
+            /* Circulation stage elements */
+            checkinBarcodeInput: get("checkin-barcode"),
+            patronCardInput: get("patron-cardnumber"),
+            patronNameDisplay: get("patron-name"),
+            checkoutBarcodeInput: get("checkout-barcode"),
+            undoButton: get("undo-button"),
+            redoButton: get("redo-button"),
+            stageTable: get("stage-table"),
+            stageFile: get("stage-file"),
+            downloadButton: get("download-button"),
+            toggleStageButton: get("toggle-stage-button"),
+            clearDataButton: get("clear-data-button"),
+
+            /* Patron search elements */
+            patronPanel: get('patron-panel'),
+            patronSearchDBUnavailable: get('patron-search-db-unavailable'),
+            patronSearchInputs: get('patron-search-inputs'),
+            patronSearchCardInput: get('patron-search-cardnumber'),
+            patronSearchFirstNameInput: get('patron-search-first-name'),
+            patronSearchSurnameInput: get('patron-search-surname'),
+            runPatronQueryButton: get('run-patron-query-button'),
+
+            queryResultContainer: get('query-result-container'),
+            queryResultOutput: get('query-result-output'),
+            queryResultTable: get('query-result-table'),
+            queryResultEmptyMessage: get('query-result-empty-message'),
+            clearResultsButton: get('clear-results-button'),
+
+            settingsErrorPanel: document.querySelector('#settings .error-panel'),
+            queryErrorPanel: document.querySelector('#patron-search .error-panel'),
+
+
+            /**** Utility functions ****/
             cloneEntries: function (entries) {
                 return entries.map((e) => ({ ...e }));
             },
@@ -669,26 +1099,269 @@
                     .replace(/'/g, "&#39;");
             },
 
+            formatFine: function (value) {
+                console.log(this.settings);
+                let options = { style: 'currency', ...this.settings.fine };
+                console.log(options);
+
+                return new Intl.NumberFormat(this.settings.locale, options).format(value);
+            },
+
+            /**
+             * Deep merge two objects. If onlyExistingKeys is true, only merge keys that already exist in the target object 
+             * (useful for merging settings updates without overwriting the entire settings object and losing defaults)
+             * Note: this function doesn't touch arrays - if a key's value is an array in the source, it will overwrite
+             * whatever is in the target, rather than merging as arrays. This is intentional, as we don't currently have
+             * any settings that are objects with nested keys, but do have some that are arrays, and we want to avoid
+             * accidentally merging those as objects.
+             */
+            mergeObjects: function (target, source, onlyExistingKeys = false) {
+                for (const key in source) {
+                    if (!onlyExistingKeys || (onlyExistingKeys && key in target)) {
+                        // Why does the isarray check have to be here? Because some of the data in the db is stored as JSON strings that parse into arrays, and we don't want to merge those as objects
+                        if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                            if (!target[key]) target[key] = {};
+                            this.mergeObjects(target[key], source[key], onlyExistingKeys);
+                        } else {
+                            target[key] = source[key];
+                        }
+                    }
+                }
+                return target;
+            },
+
+
+            /**** DB functions ****/
+            // Open IndexedDB and get a transaction
+            openIndexedDB: async function () {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains(this.OBJECT_STORE_NAME)) {
+                            db.createObjectStore(this.OBJECT_STORE_NAME);
+                        }
+                    };
+
+                    request.onsuccess = (event) => {
+                        resolve(event.target.result);
+                    };
+
+                    request.onerror = (event) => {
+                        console.error("IndexedDB error:", event.target.errorCode);
+                        reject("Failed to open IndexedDB.");
+                    };
+                });
+            },
+
+            // Function to save ArrayBuffer to IndexedDB
+            saveDbToIndexedDB: async function (arrayBuffer) {
+                try {
+                    const db = await this.openIndexedDB();
+                    const transaction = db.transaction([this.OBJECT_STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(this.OBJECT_STORE_NAME);
+                    const request = store.put(arrayBuffer, this.DB_FILE_KEY); // Overwrite if key exists
+
+                    return new Promise((resolve, reject) => {
+                        request.onsuccess = () => resolve();
+                        request.onerror = (event) => reject(event.target.error);
+                    });
+                } catch (error) {
+                    throw new Error(`Failed to save DB to IndexedDB: ${error}`);
+                }
+            },
+
+            // Function to load ArrayBuffer from IndexedDB
+            loadDbFromIndexedDB: async function () {
+                try {
+                    const db = await this.openIndexedDB();
+                    const transaction = db.transaction([this.OBJECT_STORE_NAME], 'readonly');
+                    const store = transaction.objectStore(this.OBJECT_STORE_NAME);
+                    const request = store.get(this.DB_FILE_KEY);
+
+                    return new Promise((resolve, reject) => {
+                        request.onsuccess = (event) => {
+                            resolve(event.target.result); // This will be the ArrayBuffer or undefined
+                        };
+                        request.onerror = (event) => reject(event.target.error);
+                    });
+                } catch (error) {
+                    throw new Error(`Failed to load DB from IndexedDB: ${error}`);
+                }
+            },
+            // Centralized function to load and parse DB
+            attemptLoadDb: async function (fileArrayBuffer = null) {
+                this.settingsErrorPanel.classList.add('hidden');
+                this.loadingIndicator.classList.remove('hidden');
+                this.queryResultContainer.classList.add('hidden');
+                this.queryResultOutput.innerHTML = '';
+                this.queryResultEmptyMessage.classList.add('hidden');
+                this.runPatronQueryButton.disabled = true;
+                this.clearResultsButton.classList.add('hidden');
+                this.patrons = [];
+
+                try {
+                    // Dynamically load sql-wasm.js if not already loaded
+                    if (typeof initSqlJs === 'undefined') {
+                        await new Promise((resolve, reject) => {
+                            const script = document.createElement('script');
+                            script.src = "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js";
+                            script.onload = resolve;
+                            script.onerror = reject;
+                            document.head.appendChild(script);
+                        });
+                    }
+
+                    // Ensure SQL object is initialized
+                    if (!this.SQL) {
+                        this.SQL = await initSqlJs({
+                            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+                        });
+                        console.debug("sql.js initialized successfully.");
+                    }
+
+                    let dbArrayBuffer = fileArrayBuffer;
+
+                    if (!dbArrayBuffer) {
+                        this.dbStatusMessage.textContent = "Attempting to load database from browser storage...";
+                        dbArrayBuffer = await this.loadDbFromIndexedDB();
+                    }
+
+                    if (dbArrayBuffer) {
+                        const Uints = new Uint8Array(dbArrayBuffer);
+                        app.loadedDb = new this.SQL.Database(Uints);
+
+                        if (fileArrayBuffer) { // If it was a new upload, save it
+                            await this.saveDbToIndexedDB(fileArrayBuffer);
+                            this.dbStatusMessage.textContent = "Database loaded from file.";
+                        } else {
+                            this.dbStatusMessage.textContent = "Database loaded from browser storage.";
+                        }
+                        this.dbStatusMessage.classList.add('success');
+                        this.dbStatusMessage.classList.remove('error');
+                        this.setPatronQueryButton();
+                        console.debug("Database successfully loaded and parsed.");
+
+                        // Table loaded, but does it have the right structure?
+                        const tableExists = app.loadedDb.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='borrowers';");
+                        if (tableExists.length === 0) {
+                            throw new Error("The loaded database does not contain a 'borrowers' table. Please ensure you have uploaded the correct .db file generated by the create_koc_db.pl script.");
+                        }
+                        const tableInfo = app.loadedDb.exec("PRAGMA table_info(borrowers);");
+                        const expectedFields = ['cardnumber', 'firstname', 'surname', 'phone', 'address', 'city', 'dateofbirth', 'total_fines'];
+                        let fieldsArePresent = [];
+                        Object.entries(tableInfo[0]?.values).forEach(([key, column]) => fieldsArePresent.push(column[1]));
+                        const missingFields = expectedFields.filter(field => !fieldsArePresent.includes(field));
+                        if (missingFields.length > 0) {
+                            throw new Error(`The 'borrowers' table is missing expected fields: ${missingFields.join(', ')}. Please ensure you have uploaded the correct .db file generated by the <code>create_koc_db.pl</code> script.`);
+                        }
+
+                    } else {
+                        this.dbStatusMessage.textContent = "No database loaded. Please upload a .db file.";
+                        this.runPatronQueryButton.disabled = true;
+                    }
+
+                } catch (e) {
+                    console.error("Database load error:", e);
+                    this.displayError("Failed to load or process database: " + e.message, this.settingsErrorPanel);
+                    this.dbStatusMessage.textContent = "Error loading database.";
+                    this.dbStatusMessage.classList.add('error');
+                    this.dbStatusMessage.classList.remove('success');
+                    this.runPatronQueryButton.disabled = true;
+                } finally {
+                    this.loadingIndicator.classList.add('hidden');
+                    this.ui();
+                }
+            },
+
+
+            /* Settings panel functions */
+            applySavedSettingsToForm: function (elementObject = this.settingsElements, settingsObject = this.settings) {
+                console.log("Applying settings to form:", elementObject, settingsObject);
+                Object.entries(elementObject).forEach(([key, element]) => {
+                    if (element && typeof element === 'object' && !(element instanceof HTMLElement)) {
+                        console.log(`Recursively applying settings for key: ${key}`);
+                        this.applySavedSettingsToForm(element, settingsObject[key]);
+                    } else if (element.type === 'checkbox') {
+                        console.log(`Setting checkbox ${key} to`, settingsObject[key]);
+                        element.checked = settingsObject[key];
+
+                        element.addEventListener('change', (e) => {
+                            settingsObject[key] = e.target.checked;
+                            this.saveSettings();
+                        });
+                    } else {
+                        console.log(`Setting input ${key} to`, settingsObject[key]);
+                        element.value = settingsObject[key] || '';
+                        element.addEventListener('input', (e) => {
+                            console.log(`Input changed for ${key}:`, e.target.value);
+                            settingsObject[key] = e.target.value;
+                            // If the changed setting is a CSS variable, apply the new styles immediately
+                            this.applyStyleSettings();
+                            this.saveSettings();
+                        });
+                    }
+                });
+
+            },
+
+            refreshSettingsPanel: function () {
+                settingsOpen = !this.settingsCard.classList.contains('hidden');
+
+                this.settingsCard.classList.toggle('hidden', !settingsOpen);
+                this.topMenuButton.setAttribute('aria-expanded', settingsOpen ? 'true' : 'false');
+
+                if (settingsOpen) {
+                    // Focus the file input when settings panel opens
+                    this.dbFileInput.focus();
+                    // Click outside settings panel to close it
+                    handleEscOrClickOutsideSettings = (e) => {
+                        if (e.key === 'Escape' || (e.target !== this.settingsCard && !this.settingsCard.contains(e.target) && e.target !== this.topMenuButton)) {
+                            this.toggleSettingsPanel(false);
+                            document.removeEventListener('click', handleEscOrClickOutsideSettings);
+                        }
+                    };
+                    document.addEventListener('click', handleEscOrClickOutsideSettings);
+                    document.addEventListener('keydown', handleEscOrClickOutsideSettings);
+                }
+            },
+
+            toggleSettingsPanel: function (force = null) {
+                if (force === null) {
+                    // No force value provided, toggle based on current state
+                    force = this.settingsCard.classList.toggle('hidden');
+                } else {
+                    // Force value provided, log the intended state
+                    console.debug("Force value provided. Intended settings panel state:", force ? "open" : "closed");
+                    this.settingsCard.classList.toggle('hidden', !force);
+                }
+                this.refreshSettingsPanel();
+            },
+
+            applyStyleSettings: function () {
+                const rootElement = document.querySelector(':root');
+                Object.entries(this.settings.css).forEach(([key, value]) => {
+                    console.log(value, key);
+                    rootElement.style.setProperty('--' + key, value);
+                });
+            },
+
+            /* Circulation stage functions */
             // TODO: Could refactor as tabs instead of toggle, see https://css-tricks.com/tabs-its-complicated
             toggleStageView: function () {
-                const stageTable = get("stage_table");
-                const stageFile = get("stage_file");
-                const toggleButton = get("stage_toggle");
+                if (!this.stageTable || !this.stageFile || !this.toggleStageButton) return;
 
-                if (!stageTable || !stageFile || !toggleButton) return;
+                const isShowingTable = !this.stageTable.classList.contains("hidden");
 
-                const isShowingTable = stageTable.style.display !== "none";
-
-                stageTable.style.display = isShowingTable ? "none" : "block";
-                stageFile.style.display = isShowingTable ? "block" : "none";
-                toggleButton.textContent = isShowingTable ? "Show table view" : "Show raw data";
+                this.stageTable.classList.toggle("hidden", isShowingTable);
+                this.stageFile.classList.toggle("hidden", !isShowingTable);
+                this.toggleStageButton.textContent = isShowingTable ? "Show Table" : "Show Raw Data";
             },
 
             updateHistoryButtons: function () {
-                const undoButton = get("undoButton");
-                const redoButton = get("redoButton");
-                if (undoButton) undoButton.disabled = this.history.length === 0;
-                if (redoButton) redoButton.disabled = this.future.length === 0;
+                if (this.undoButton) this.undoButton.disabled = this.history.length === 0;
+                if (this.redoButton) this.redoButton.disabled = this.future.length === 0;
             },
 
             commit: function (mutator) {
@@ -702,25 +1375,46 @@
             },
 
             init: function () {
-                const savedEntries = localStorage.getItem(this.storageKey);
 
-                if (savedEntries) {
-                    try {
-                        const parsed = JSON.parse(savedEntries);
-                        if (Array.isArray(parsed)) {
-                            this.entries = parsed;
+                // entries[] and settings{} are initiated with default values above;
+                // if we've saved data in localStorage, overwrite those defaults with the saved values
+                let parsed;
+                ['entries', 'settings'].forEach(key => {
+                    const saved = localStorage.getItem(this[key + 'Key']);
+                    if (saved) {
+                        try {
+                            parsed = JSON.parse(saved);
+                            console.log(`Loaded saved ${key}:`, parsed);
+                            // merge objects. For settings, merge with default values, in case what's saved is missing some keys
+                            if (key === 'settings') {
+                                this[key] = this.mergeObjects(this[key], parsed, true);
+                                // Also merge in any non-user-facing default settings that aren't saved to localStorage, to ensure they are present without overwriting user settings
+                                this[key] = this.mergeObjects(this[key], this.nonUserSettingsDefaults);
+                            } else {
+                                this[key] = this.mergeObjects(this[key], parsed, false);
+                            }
+                        } catch (e) {
+                            console.error(`Failed to parse saved ${key}:`, e);
                         }
-                    } catch (e) {
-                        console.error("Failed to parse saved entries:", e);
-                        this.entries = [];
+                    } else if (key === 'settings') {
+                        this[key] = this.mergeObjects(this[key], this.nonUserSettingsDefaults);
                     }
-                }
+                });
+
+                this.applyStyleSettings();
+
+                // Make the settings panel reflect the loaded settings
+                this.applySavedSettingsToForm();
 
                 this.ui();
-                get("bar_ckin").focus();
+                get("checkin-barcode").focus();
             },
 
-            get_date: function () {
+            saveSettings: function () {
+                localStorage.setItem(this.settingsKey, JSON.stringify(this.settings));
+            },
+
+            getKohaDate: function () {
                 const now = new Date();
                 const year = now.getFullYear();
                 const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -732,30 +1426,34 @@
             },
 
             checkin: function () {
-                const itemBarcode = get("bar_ckin").value.trim();
-                if (!itemBarcode) return;
+                const itemBarcode = this.checkinBarcodeInput.value.trim();
+
+                if (!itemBarcode) {
+                    this.beep("error");
+                    return;
+                }
 
                 this.commit(() => {
                     this.entries.push({
-                        ts: this.get_date(),
+                        ts: this.getKohaDate(),
                         type: "return",
                         itemBarcode
                     });
                 });
                 this.beep("ok");
 
-                get("bar_ckin").value = "";
-                get("bar_ckin").focus();
+                this.checkinBarcodeInput.value = "";
+                this.checkinBarcodeInput.focus();
             },
 
             checkout: function () {
-                const patCard = get("pat_card").value.trim();
-                const itemBarcode = get("bar_ckout").value.trim();
+                const patCard = this.patronCardInput.value.trim();
+                const itemBarcode = this.checkoutBarcodeInput.value.trim();
                 if (!patCard || !itemBarcode) return;
 
                 this.commit(() => {
                     this.entries.push({
-                        ts: this.get_date(),
+                        ts: this.getKohaDate(),
                         type: "issue",
                         patCard,
                         itemBarcode
@@ -763,9 +1461,8 @@
                 });
                 this.beep("ok");
 
-                get("bar_ckout").value = "";
-                get("bar_ckout").focus();
-                this.ui();
+                this.checkoutBarcodeInput.value = "";
+                this.checkoutBarcodeInput.focus();
             },
 
             undo: function () {
@@ -785,16 +1482,12 @@
             },
 
             clear: function () {
-                console.log("Clearing data...");
                 showCustomConfirmation("Delete local data?", () => {
                     this.commit(() => {
                         this.entries = [];
                     });
                     showCustomAlert("Local data deleted.");
-                }, () => {
-                    showCustomAlert("Canceled.");
                 });
-                this.ui();
             },
 
             serializeKoc: function (entries) {
@@ -808,7 +1501,7 @@
             },
 
             save: function () {
-                localStorage.setItem(this.storageKey, JSON.stringify(this.entries));
+                localStorage.setItem(this.entriesKey, JSON.stringify(this.entries));
             },
 
             download: function () {
@@ -832,62 +1525,396 @@
                 URL.revokeObjectURL(url);
             },
 
-            find_patron: function (cardnumber) {
-                // Return cached patron name if available
-                if (this.patrons[cardnumber]) {
-                    return { name: this.patrons[cardnumber] };
-                }
-
-                query = 'SELECT surname, firstname FROM borrowers WHERE cardnumber = ?';
+            // TODO: Enable lookup options by name/surname as well, change the patron search table to be able to receive output
+            //from a findPatrons() method that returns multiple matches, based on this method.
+            findPatron: function (input, options = { searchOnPartialCardNumber: false, searchAllFields: true }) {
+                const { searchOnPartialCardNumber, searchAllFields } = options;
 
                 if (!this.loadedDb) {
-                    // TODO: this function isn't available from here
-                    displayError("No database loaded. Please upload a .db file first.");
-                    return;
+                    return { error: "No database loaded." };
+                }
+
+                // Return cached patron name if available
+                if (this.patrons[input]) {
+                    return { numResults: 1, name: this.patrons[input], cardnumber: input };
+                }
+                let query, searchValues;
+
+                if (searchAllFields) {
+                    // For future expansion: search by name/surname as well
+                    // This would require additional handling to determine which field(s) matched and how to display results, especially if there are multiple matches across different fields
+                    let tokens = input.split(/\s+/);
+
+                    query = 'SELECT surname, firstname, cardnumber FROM borrowers WHERE (cardnumber LIKE ? || "%" OR firstname LIKE ? || "%" OR surname LIKE ? || "%")';
+                    searchValues = [tokens[0], tokens[0], tokens[0]];
+                    for (let i = 1; i < tokens.length; i++) {
+                        query += ' AND (cardnumber LIKE ? || "%" OR firstname LIKE ? || "%" OR surname LIKE ? || "%")';
+                        searchValues.push(tokens[i], tokens[i], tokens[i]);
+                    }
+                    query += ' ORDER BY surname, firstname';
+
+                } else {
+                    query = 'SELECT surname, firstname, cardnumber FROM borrowers WHERE cardnumber LIKE ?';
+
+                    if (searchOnPartialCardNumber) {
+                        query += ' || "%"';
+                    }
+                    query += ' ORDER BY surname, firstname';
+
+                    searchValues = [input];
                 }
 
                 try {
-                    const res = this.loadedDb.exec(query, [cardnumber]);
-                    console.log("SQL query result:", res);
-                    if (res.length > 0) {
-                        // Cache the patron info for future lookups
-                        const name = `${res[0].values[0][1]} ${res[0].values[0][0]}`;
-                        this.patrons[cardnumber] = name;
-                        return { name: name };
+                    const resultPatrons = [];
+                    const res = this.loadedDb.exec(query, searchValues);
+                    if (!res || !res[0] || !res[0].values) {
+                        return { numResults: 0, error: "No patron found with that card number." };
                     }
-                    return { error: "No patron found with that card number." };
+                    res[0].values.forEach(row => {
+                        // Cache the patron info for future lookups
+                        const name = `${row[0]}, ${row[1]}`;
+                        const cardnumber = row[2];
+                        this.patrons[cardnumber] = name;
+                        resultPatrons.push({ firstname: row[1], surname: row[0], cardnumber: cardnumber, name: name });
+                    });
+                    if (resultPatrons.length === 1) {
+                        resultPatrons[0].numResults = 1;
+                        return resultPatrons[0];
+                    } else if (resultPatrons.length > 1) {
+                        return { numResults: resultPatrons.length };
+                    }
                 }
                 catch (e) {
                     console.error("SQL error:", e);
-                    displayError("An SQL error occurred: " + e.message);
+                    this.displayError("An SQL error occurred: " + e.message);
+                    return { error: "An SQL error occurred: " + e.message };
                 }
 
             },
 
-            set_patron_info: function () {
+            setPatronNameDisplay: function (content) {
+                this.patronNameDisplay.textContent = content;
+                this.patronNameDisplay.classList.toggle("hidden", !content);
+            },
 
-                if (!app.loadedDb) {
+            displayPatronInfo: function (options = { searchOnPartialCardNumber: false }) {
+
+                const { searchOnPartialCardNumber } = options;
+
+                if (!this.loadedDb) {
                     return true;
                 }
 
-                const patCard = get("pat_card").value.trim();
-                const patNameElem = get("pat_name");
+                const patCard = this.patronCardInput.value.trim();
 
-                patNameElem.textContent = "Looking up patron info...";
-                const patronInfo = this.find_patron(patCard);
-                if (patronInfo.name) {
-                    patNameElem.textContent = patronInfo.name;
-                    this.beep("ok");
-                    return true;
-                } else {
-                    patNameElem.textContent = patronInfo.error;
-                    this.beep("error");
+                if (patCard.length === 0) {
+                    this.setPatronNameDisplay("");
                     return false;
                 }
+
+                this.setPatronNameDisplay("Looking up patron info...");
+                const patronInfo = this.findPatron(patCard, options);
+
+                if (!searchOnPartialCardNumber) {
+                    if (patronInfo.numResults === 0) {
+                        // Try again with partial card number match
+                        this.setPatronNameDisplay(patronInfo.error);
+                        return { numResults: 0, error: patronInfo.error };
+                    } else {
+                        this.setPatronNameDisplay(patronInfo.name);
+                        return { numResults: 1, name: patronInfo.name, cardnumber: patronInfo.cardnumber };
+                    }
+                } else {
+                    // We're displaying if there's exactly one match, otherwise we're searching
+                    switch (patronInfo.numResults) {
+                        case 0:
+                            this.setPatronNameDisplay("No patron found with that card number.");
+                            break;
+                        case 1:
+                            if (patCard == patronInfo.cardnumber) {
+                                this.setPatronNameDisplay(`${patronInfo.name}`);
+                            } else {
+                                this.setPatronNameDisplay(`Partial match: ${patronInfo.name} (${patronInfo.cardnumber})`);
+                            }
+                            break;
+                        default:
+                            this.setPatronNameDisplay(`Found ${patronInfo.numResults} patrons so far...`);
+                    }
+                    return patronInfo;
+                }
             },
 
-            set_bar_ckout: function () {
-                get("bar_ckout").disabled = !get("pat_card").value.trim().length;
+            /**
+            * Enables or disables the checkout barcode input based on the current patron card input and lookup results.
+            * If focusCheckoutBarcode is true, will focus the checkout barcode input if it's enabled after the lookup.
+            * If selectPatronCardInputOnFailure is true, will focus and select the patron card input if the lookup fails
+            * to find a unique patron, to prompt the user to correct their input.
+            */
+            handleCheckoutDisplayAndInput: function (options = { focusCheckoutBarcode: false, selectPatronCardInputOnFailure: false, searchOnPartialCardNumber: false, inputChanged: false }) {
+                const { focusCheckoutBarcode, selectPatronCardInputOnFailure, searchOnPartialCardNumber, inputChanged } = options;
+
+                const patronInfo = this.displayPatronInfo(options);
+
+                let barcodeDisabled = this.checkoutBarcodeInput.disabled;
+                console.debug("Barcode input state before lookup:", barcodeDisabled);
+
+                if (patronInfo === true) {
+                    // No DB, enable input unless no barcode yet
+                    barcodeDisabled = !this.patronCardInput.value.trim().length;
+
+                } else if (patronInfo.numResults === 1) {
+                    if (patronInfo.cardnumber === this.patronCardInput.value.trim()) {
+                        // Unique match with exact card number, enable checkout
+                        barcodeDisabled = false;
+                    } else {
+                        // Unique match but only on partial card number, keep checkout disabled to avoid errors
+                        barcodeDisabled = true;
+                        this.patronCardInput.addEventListener('keydown', (e) => {
+                            if ((e.key === "Tab" || e.key === "Enter" || e.key === "ArrowDown") && e.getModifierState("Shift") === false) {
+                                e.preventDefault();
+                                this.patronCardInput.value = patronInfo.cardnumber;
+                                this.handleCheckoutDisplayAndInput(options);
+                            }
+                        }, { once: true });
+                    }
+                } else {
+                    // No matches or multiple matches, disable checkout
+                    barcodeDisabled = true;
+                }
+
+                this.checkoutBarcodeInput.disabled = barcodeDisabled;
+
+                if (barcodeDisabled && selectPatronCardInputOnFailure) {
+                    this.beep("error");
+                    this.patronCardInput.focus();
+                    this.patronCardInput.select();
+                } else if (focusCheckoutBarcode && !barcodeDisabled) {
+                    if (inputChanged) this.beep("ding");
+                    this.checkoutBarcodeInput.focus();
+                }
+
+                return barcodeDisabled;
+            },
+
+            populateCirculationTable: function () {
+                // Create HTML table for human-friendly display
+                let tbody = this.stageTable.querySelector("tbody");
+                tbody.innerHTML = "";
+                if (this.entries.length === 0) {
+                    let tr = document.createElement("tr");
+                    tr.className = "placeholder";
+                    let td = document.createElement("td");
+                    td.colSpan = 5;
+                    td.innerHTML = "<em>Get started by entering an item for check-in or entering a patron cardnumber and checkout item above.</em>";
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+                    return;
+                }
+
+                for (const e of this.entries) {
+                    let tr = document.createElement("tr");
+
+                    ['ts', 'type', 'patCard', 'itemBarcode', 'remove'].forEach((field) => {
+                        let td = document.createElement("td");
+                        if (field === 'patCard' && this.loadedDb && e[field]) {
+                            let patron = this.findPatron(e[field]);
+                            td.innerText = patron.name ?? "Unknown patron: " + e[field];
+                        } else if (field === 'remove') {
+                            let removeButton = document.createElement("button");
+                            removeButton.textContent = "Remove";
+                            removeButton.classList.add("btn-danger-hover");
+                            removeButton.onclick = () => {
+                                this.commit(() => {
+                                    this.entries = this.entries.filter(entry => entry !== e);
+                                });
+                                this.ui();
+                            };
+                            td.appendChild(removeButton);
+                        } else if (field === 'type') {
+                            td.className = td.innerText = e.type;
+                        } else {
+                            td.innerText = this.escapeHtml(e[field] || "");
+                        }
+
+                        tr.appendChild(td);
+                    });
+
+                    tbody.appendChild(tr);
+                }
+            },
+
+            populateDataFile: function () {
+                const lines = [];
+
+                lines.push(this.escapeHtml(this.header.trimEnd()));
+
+                for (const e of this.entries) {
+                    if (e.type === "issue") {
+                        lines.push(
+                            `${this.escapeHtml(e.ts)}\t<span class='text-red'>issue</span>\t${this.escapeHtml(e.patCard)}\t${this.escapeHtml(e.itemBarcode)}`
+                        );
+                    } else {
+                        lines.push(
+                            `${this.escapeHtml(e.ts)}\t<span class='text-green'>return</span>\t${this.escapeHtml(e.itemBarcode)}`
+                        );
+                    }
+                }
+
+                this.stageFile.querySelector("div").innerHTML = lines.join("\n");
+            },
+
+
+            /* Patron Search Functions */
+            canQueryPatrons: function () {
+                return this.patronSearchCardInput.value.trim() !== '' ||
+                    this.patronSearchFirstNameInput.value.trim() !== '' ||
+                    this.patronSearchSurnameInput.value.trim() !== '';
+            },
+
+            setPatronQueryButton: function () {
+                this.runPatronQueryButton.disabled = !this.canQueryPatrons();
+            },
+
+            // TODO: Separate search and display logic
+            executePatronQuery: function () {
+                this.queryResultOutput.innerHTML = '';
+                this.queryResultEmptyMessage.classList.add('hidden');
+                this.queryErrorPanel.classList.add('hidden');
+                this.clearResultsButton.classList.remove('hidden');
+                this.queryResultTable.classList.add('hidden');
+
+                if (!this.loadedDb) {
+                    this.displayError("No database loaded. Please upload a .db file first.", this.queryErrorPanel);
+                    return;
+                }
+
+                const cardNumber = this.patronSearchCardInput.value.trim();
+                const firstName = this.patronSearchFirstNameInput.value.trim();
+                const surname = this.patronSearchSurnameInput.value.trim();
+
+                if (!this.canQueryPatrons()) {
+                    this.displayError("Please enter at least one search criterion (Card Number, First Name, or Surname).", this.queryErrorPanel);
+                    return;
+                }
+
+                let sortFields = '', clause = '';
+                const sortFieldParams = [];
+                const clauseParams = [];
+
+                if (cardNumber) {
+                    sortFields += "CASE WHEN cardnumber LIKE ? || '%' THEN 1 ELSE 0 END as cardnumber_match, ";
+                    sortFieldParams.push(cardNumber);
+                    clause += " AND cardnumber LIKE '%' || ? || '%'";
+                    clauseParams.push(cardNumber);
+                } else {
+                    sortFields += "0 AS cardnumber_match, ";
+                }
+                if (surname) {
+                    sortFields += "CASE WHEN surname LIKE ? || '%' THEN 2 WHEN surname LIKE '% ' || ? || '%' THEN 1 ELSE 0 END AS surname_match, ";
+                    sortFieldParams.push(surname, surname);
+                    clause += " AND surname LIKE '%' || ? || '%'";
+                    clauseParams.push(surname);
+                } else {
+                    sortFields += "0 AS surname_match, ";
+                }
+                if (firstName) {
+                    sortFields += "CASE WHEN firstname LIKE ? || '%' THEN 2 WHEN firstname LIKE '% ' || ? || '%' THEN 1 ELSE 0 END AS firstname_match ";
+                    sortFieldParams.push(firstName, firstName);
+                    clause += " AND firstname LIKE '%' || ? || '%'";
+                    clauseParams.push(firstName);
+                } else {
+                    sortFields += "0 AS firstname_match ";
+                }
+
+                let query = `
+                    WITH subquery AS (SELECT
+                        *,` +
+                    sortFields +
+                    `
+                    FROM borrowers WHERE 1` + clause + `)
+                    SELECT
+                        cardnumber as 'Card Number', 
+                        surname AS 'Surname', 
+                        firstname AS 'First Name', 
+                        phone as Phone, 
+                        address || ' ' || city as 'Address', 
+                        IFNULL(dateofbirth, '') as 'Date of Birth',
+                        IFNULL(total_fines, '0') as Fines
+                    FROM subquery
+                    ORDER BY cardnumber_match DESC, surname_match DESC, firstname_match DESC, surname, firstname`;
+                query += " LIMIT 100;"; // Limit results to prevent overwhelming the browser
+
+                console.log(query);
+                try {
+                    const results = app.loadedDb.exec(query, sortFieldParams.concat(clauseParams));
+
+                    if (results.length > 0) {
+                        const table = this.queryResultTable;
+                        const thead = table.querySelector('thead');
+                        const tbody = table.querySelector('tbody');
+
+                        thead.innerHTML = '';
+                        tbody.innerHTML = '';
+
+                        // Create table header
+                        const headerRow = document.createElement('tr');
+                        results[0].columns.forEach(colName => {
+                            const th = document.createElement('th');
+                            th.textContent = colName;
+                            headerRow.appendChild(th);
+                        });
+
+                        thead.appendChild(headerRow);
+
+                        // Populate table body
+                        const finesColIndex = results[0].columns.findIndex(name => name.toLowerCase() === 'fines');
+                        results[0].values.forEach(row => {
+                            const tr = document.createElement('tr');
+                            row.forEach((cell, colIndex) => {
+                                const td = document.createElement('td');
+                                if (cell === row[0]) {
+                                    tr.addEventListener('click', (e) => {
+                                        this.patronCardInput.value = cell;
+                                        this.handleCheckoutDisplayAndInput({ focusCheckoutBarcode: true, inputChanged: true });
+                                    });
+                                }
+
+                                if (colIndex === finesColIndex) {
+                                    td.textContent = this.formatFine(cell);
+                                    if (parseFloat(cell) > 0) {
+                                        td.classList.add('text-red');
+                                    }
+                                } else {
+                                    td.textContent = cell;
+                                }
+                                tr.appendChild(td);
+                            });
+                            tbody.appendChild(tr);
+                        });
+                        console.debug("Query executed successfully. Number of results:", results[0].values.length);
+                        console.debug("Class list before update:", table.className);
+                        table.classList.remove('hidden');
+                        console.debug("Class list after update:", table.className);
+
+                        // if there's only one result, we also populate the checkout card number field and focus the barcode field for convenience
+                        if (results[0].values.length === 1) {
+                            this.patronCardInput.value = results[0].values[0][0];
+                            this.handleCheckoutDisplayAndInput({ focusCheckoutBarcode: true, inputChanged: true });
+                        }
+                    } else {
+                        this.queryResultEmptyMessage.classList.remove('hidden');
+                    }
+                    this.queryResultContainer.classList.remove('hidden');
+                } catch (e) {
+                    console.error("Error:", e);
+                    this.displayError("An error occurred: " + e.message);
+                }
+            },
+
+            // Display Error Message
+            displayError: function (message, element = this.queryErrorPanel) {
+                element.textContent = message;
+                element.classList.remove('hidden');
             },
 
             audioCtx: null,
@@ -904,8 +1931,27 @@
             beep: function (kind = "ok") {
                 this.ensureAudio();
 
-                const freq = kind === "error" ? 220 : 880;
-                const duration = kind === "error" ? 0.18 : 0.08;
+                console.debug("Playing a beep of kind:", kind);
+
+                let freq;
+                let duration;
+
+                switch (kind) {
+                    case "error":
+                        freq = 220;
+                        duration = 0.18;
+                        break;
+
+                    case "ding":
+                        freq = 1046.50;
+                        duration = 0.6;
+                        break;
+
+                    case "ok":
+                    default:
+                        freq = 880;
+                        duration = 0.08;
+                }
 
                 const osc = this.audioCtx.createOscillator();
                 const gain = this.audioCtx.createGain();
@@ -924,69 +1970,195 @@
                 osc.stop(this.audioCtx.currentTime + duration);
             },
 
-
             ui: function () {
-                const lines = [];
+                this.patronSearchDBUnavailable.classList.toggle('hidden', this.loadedDb);
+                this.patronSearchInputs.classList.toggle('hidden', !this.loadedDb);
 
-                lines.push(this.escapeHtml(this.header.trimEnd()));
-
-                for (const e of this.entries) {
-                    if (e.type === "issue") {
-                        lines.push(
-                            `${this.escapeHtml(e.ts)}\t<span class='red_t'>issue</span>\t${this.escapeHtml(e.patCard)}\t${this.escapeHtml(e.itemBarcode)}`
-                        );
-                    } else {
-                        lines.push(
-                            `${this.escapeHtml(e.ts)}\t<span class='green_t'>return</span>\t${this.escapeHtml(e.itemBarcode)}`
-                        );
-                    }
-                }
-
-                // Create HTML table for human-friendly display
-                let table = get("stage_table");
-                let tbody = table.querySelector("tbody");
-                if (!tbody) {
-                    tbody = document.createElement("tbody");
-                    table.appendChild(tbody);
-                } else {
-                    tbody.innerHTML = "";
-                }
-
-                for (const e of this.entries) {
-                    let tr = document.createElement("tr");
-                    tr.className = e.type;
-
-                    ['ts', 'type', 'patCard', 'itemBarcode', 'remove'].forEach((field) => {
-                        let td = document.createElement("td");
-                        if (field === 'patCard' && this.loadedDb && e[field]) {
-                            let patron = this.find_patron(e[field]);
-                            td.innerText = patron.name ?? "Unknown patron: " + e[field];
-                        } else if (field === 'remove') {
-                            let removeButton = document.createElement("button");
-                            removeButton.textContent = "Remove";
-                            removeButton.onclick = () => {
-                                this.commit(() => {
-                                    this.entries = this.entries.filter(entry => entry !== e);
-                                });
-                                this.ui();
-                            };
-                            td.appendChild(removeButton);
-                        } else {
-                            td.innerText = this.escapeHtml(e[field] || "");
-                        }
-
-                        tr.appendChild(td);
-                    });
-
-                    tbody.appendChild(tr);
-                }
-
-                get("stage_file").querySelector("div").innerHTML = lines.join("\n");
-
-                this.set_bar_ckout()
+                this.populateCirculationTable();
+                this.populateDataFile();
 
                 this.save();
                 this.updateHistoryButtons();
+            },
+
+            debounce: function (func, delay = 300) {
+                let timerId;
+                return (...args) => {
+                    // Clear the previous timer if the user types again within the delay
+                    clearTimeout(timerId);
+                    // Set a new timer
+                    timerId = setTimeout(() => {
+                        func.apply(this, args);
+                    }, delay);
+                };
+            },
+
+            registerListeners: function () {
+                /*
+                const registerElementListeners = function (elements, settings, ignoreKeys = {}) {
+                    Object.entries(elements).forEach(([key, elem]) => {
+                        console.log("Registering listener for element:", elem);
+                        if (elem && typeof elem === 'object' && !(elem instanceof HTMLElement)) {
+                            registerElementListeners(elem, settings[key], ignoreKeys[key] || {});
+                        } else if (elem instanceof HTMLButtonElement) {
+                            elem.addEventListener('click', (e) => {
+                                settings[key] = e.target.value;
+                                app.saveSettings();
+                            });
+                        } else { // possibly do: if (elem instanceof HTMLInputElement || elem instanceof HTMLSelectElement)
+                            if (parentKey === 'css.') {
+                                elem.addEventListener('input', debounce((e) => {
+                                    settings[key] = e.target.value;
+                                    app.saveSettings();
+                                    app.applyStyleSettings();
+                                }, 300));
+
+                            } else {
+                                elem.addEventListener('input', app.debounce((e) => {
+                                    settings[key] = e.target.value;
+                                    app.saveSettings();
+                                }, 300));
+                            }
+                        }
+                    });
+                } */
+                /* Settings */
+                this.topMenuButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleSettingsPanel();
+                });
+
+                this.dbFileInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = async (e) => {
+                            await this.attemptLoadDb(e.target.result);
+                        };
+                        reader.onerror = (e) => {
+                            console.error("File reading error:", e);
+                            this.displayError("Error reading file: " + e.message);
+                        };
+                        reader.readAsArrayBuffer(file);
+                    }
+                });
+
+                // Other settings listeners are registered when applying settings to the form at init, via the method
+                // registerElementListeners(this.settingsElements, this.settings);
+                /*
+                Object.entries(this.settingsElements.css).forEach(([key, elem]) => {
+                    console.log("Registering listener for CSS setting:", elem);
+                    elem.addEventListener('input', (e) => {
+                        this.settings.css[key] = e.target.value;
+                        this.applyStyleSettings();
+                    });
+                });
+                */
+                get('reset-color-button').addEventListener('click', () => {
+                    const defaultColor = window.getComputedStyle(document.documentElement).getPropertyValue('--default-color-brand');
+
+                    this.settings.css['color-brand'] = defaultColor;
+                    this.settingsElements.css['color-brand'].value = defaultColor;
+                    this.saveSettings();
+                    this.applyStyleSettings();
+                });
+
+                /**
+                * Can create a link to open settings anywhere in the app by using the "open-settings" class,
+                * which is used in the patron search panel when DB is not loaded
+                */
+                Object.entries(document.querySelectorAll('.open-settings')).forEach(([key, elem]) => {
+                    elem.addEventListener('click', (e) => {
+                        console.log("Here");
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.toggleSettingsPanel(true);
+                    });
+                });
+
+                /* Checkin/Checkout */
+                this.checkinBarcodeInput.addEventListener('change', (e) => this.checkin());
+
+                // The cardnumber won't always be entered by a keyboard (e.g. barcode scanner), so we use both 
+                //   input event with debounce for user convenience and change event for reliability
+                const debouncedPatronInput = this.debounce(() => {
+                    if (this.settings.searchOnPartialCardNumber) {
+                        this.handleCheckoutDisplayAndInput({ focusCheckoutBarcode: true, searchOnPartialCardNumber: true, inputChanged: true });
+                    }
+                }, 300);
+
+                this.patronCardInput.addEventListener('input', (e) => {
+                    if (this.settings.searchOnPartialCardNumber) {
+                        debouncedPatronInput();
+                    } else {
+                        this.setPatronNameDisplay('');
+                        this.checkoutBarcodeInput.disabled = true;
+                    }
+                });
+
+                this.patronCardInput.addEventListener('change', (e) => {
+                    if (!this.settings.searchOnPartialCardNumber) {
+                        this.handleCheckoutDisplayAndInput({ focusCheckoutBarcode: true, selectPatronCardInputOnFailure: true, inputChanged: true });
+                    }
+                });
+
+                this.checkoutBarcodeInput.addEventListener('change', (e) => this.checkout());
+
+                this.undoButton.addEventListener('click', () => this.undo());
+                this.redoButton.addEventListener('click', () => this.redo());
+
+                document.addEventListener('keydown', (e) => {
+                    if (get("custom-modal").open) {
+                        return; // Don't process other shortcuts when modal is open
+                    }
+                    if ((e.key === 'Z' || e.key === 'z') && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        if (e.shiftKey) {
+                            this.redo();
+                        } else {
+                            this.undo();
+                        }
+                    }
+                });
+
+                this.downloadButton.addEventListener('click', () => this.download());
+                this.toggleStageButton.addEventListener('click', () => this.toggleStageView());
+                this.clearDataButton.addEventListener('click', () => this.clear());
+
+                /* Patron Query */
+                this.patronSearchCardInput.addEventListener('input', () => this.setPatronQueryButton());
+                this.patronSearchFirstNameInput.addEventListener('input', () => this.setPatronQueryButton());
+                this.patronSearchSurnameInput.addEventListener('input', () => this.setPatronQueryButton());
+
+                const searchIfEnter = (e) => {
+                    if (e.key === 'Enter' && this.canQueryPatrons()) {
+                        this.executePatronQuery();
+                    }
+                }
+                this.patronSearchCardInput.addEventListener('keydown', searchIfEnter);
+                this.patronSearchFirstNameInput.addEventListener('keydown', searchIfEnter);
+                this.patronSearchSurnameInput.addEventListener('keydown', searchIfEnter);
+                this.runPatronQueryButton.addEventListener('click', () => this.executePatronQuery());
+
+                this.clearResultsButton.addEventListener('click', () => {
+                    this.queryResultOutput.innerHTML = '';
+                    [
+                        this.queryResultEmptyMessage,
+                        this.queryResultContainer,
+                        this.queryResultTable,
+                        this.clearResultsButton,
+                        this.queryErrorPanel,
+                    ].forEach(e => {
+                        e.classList.add('hidden');
+                    });
+
+                    // Clear input fields
+                    this.patronSearchCardInput.value = '';
+                    this.patronSearchFirstNameInput.value = '';
+                    this.patronSearchSurnameInput.value = '';
+
+                    this.patronSearchCardInput.focus();
+                });
             }
         };
 
@@ -995,97 +2167,47 @@
         }
 
         function createModal(message, type = 'alert', onConfirm = null, onCancel = null) {
-            // oncancel should be the default if user clicks outside the modal or presses escape, focus should be on confirm
-            const existingModal = get('customModal');
-            if (existingModal) {
-                existingModal.remove();
-            }
+            const modal = get('custom-modal');
+            const modalContent = modal.querySelector('div');
 
-            const modal = document.createElement('div');
-            modal.id = 'customModal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-            `;
-
-            const modalContent = document.createElement('div');
-            modalContent.style.cssText = `
-                background-color: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-                text-align: center;
-                max-width: 400px;
-                width: 90%;
-            `;
-
-            const messagePara = document.createElement('p');
+            const messagePara = modal.querySelector('p#custom-modal-message');
             messagePara.textContent = message;
-            messagePara.style.marginBottom = '20px';
-            modalContent.appendChild(messagePara);
 
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
-            buttonContainer.style.justifyContent = 'center';
-            buttonContainer.style.gap = '10px';
-
-            function dismiss() {
-                modal.remove();
-                document.removeEventListener('keydown', handleKeyDownModal);
-            }
-
-            function handleKeyDownModal(e) {
-                if (e.key === 'Escape') {
-                    dismiss();
-                }
-            }
-
-            // Click outside modal content to cancel
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    dismiss();
-                }
-            });
-
-            document.addEventListener('keydown', handleKeyDownModal);
+            const buttonsContainer = modal.querySelector('div#custom-modal-buttons');
+            buttonsContainer.innerHTML = '';
 
             if (type === 'alert') {
                 const okButton = document.createElement('button');
                 okButton.textContent = 'OK';
-                okButton.onclick = () => dismiss();
-                buttonContainer.appendChild(okButton);
-                modalContent.appendChild(buttonContainer);
-                modal.appendChild(modalContent);
-                document.body.appendChild(modal);
+                okButton.onclick = () => modal.close();
+                buttonsContainer.appendChild(okButton);
                 okButton.focus();
             } else if (type === 'confirm') {
                 const confirmButton = document.createElement('button');
                 confirmButton.textContent = 'Confirm';
                 confirmButton.onclick = () => {
-                    dismiss(false);
-                    if (onConfirm) onConfirm();
+                    if (onConfirm) {
+                        onConfirm();
+                    } else {
+                        modal.close();
+                    }
                 };
                 confirmButton.classList.add('btn-confirm');
-                buttonContainer.appendChild(confirmButton);
+                buttonsContainer.appendChild(confirmButton);
 
                 const cancelButton = document.createElement('button');
                 cancelButton.textContent = 'Cancel';
-                cancelButton.onclick = () => dismiss(true);
-                buttonContainer.appendChild(cancelButton);
-
-                modalContent.appendChild(buttonContainer);
-                modal.appendChild(modalContent);
-                document.body.appendChild(modal);
+                cancelButton.onclick = () => {
+                    if (onCancel) {
+                        onCancel();
+                    } else {
+                        modal.close();
+                    }
+                };
+                buttonsContainer.appendChild(cancelButton);
                 confirmButton.focus();
             }
+            modal.showModal();
         }
 
         function showCustomAlert(message) {
@@ -1096,26 +2218,14 @@
             createModal(message, 'confirm', onConfirm, onCancel);
         }
 
-
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize Koha app after DOM is loaded
             app.init();
 
-            document.addEventListener('keydown', (e) => {
-                if ((e.key === 'Z' || e.key === 'z') && (e.ctrlKey || e.metaKey)) {
-                    e.preventDefault();
-                    if (e.shiftKey) {
-                        app.redo();
-                    } else {
-                        app.undo();
-                    }
-                }
-            });
-
             // --- Resizable Panels Logic ---
             const kohaPanel = get('koha-panel');
-            const borrowerPanel = get('borrower-panel');
-            const resizer = get('dragMe');
+            const patronPanel = app.patronPanel;
+            const resizer = get('drag-me');
             let isDragging = false;
 
             resizer.addEventListener('mousedown', (e) => {
@@ -1133,11 +2243,11 @@
 
                 // Get min-width from CSS
                 const minKohaWidth = parseFloat(window.getComputedStyle(kohaPanel).minWidth);
-                const minBorrowerWidth = parseFloat(window.getComputedStyle(borrowerPanel).minWidth);
+                const minPatronWidth = parseFloat(window.getComputedStyle(patronPanel).minWidth);
 
-                // Calculate max allowed width for kohaPanel to respect minBorrowerWidth
+                // Calculate max allowed width for kohaPanel to respect minPatronWidth
                 // Subtract resizer width from container width
-                const maxKohaWidth = containerWidth - minBorrowerWidth - resizer.offsetWidth;
+                const maxKohaWidth = containerWidth - minPatronWidth - resizer.offsetWidth;
 
                 // Ensure kohaPanel stays within its min/max bounds
                 let finalWidth = Math.max(minKohaWidth, newKohaPanelWidth);
@@ -1145,7 +2255,7 @@
 
                 // Apply the new width to the kohaPanel using flex-basis
                 kohaPanel.style.flexBasis = `${finalWidth}px`;
-                // borrowerPanel will automatically adjust due to flex: 1 1 auto;
+                // patronPanel will automatically adjust due to flex: 1 1 auto;
             });
 
             document.addEventListener('mouseup', () => {
@@ -1156,335 +2266,14 @@
 
             // --- End Resizable Panels Logic ---
 
-            const patronCardInput = get('pat_card');
-
-            const fileInput = get('dbFile');
-            const loadingIndicator = get('loadingIndicator');
-            const errorMessage = get('errorMessage');
-            const errorText = get('errorText');
-            const queryResultContainer = get('queryResultContainer');
-            const queryResultOutput = get('queryResultOutput');
-            const queryResultEmptyMessage = get('queryResultEmptyMessage');
-            const dbStatusMessage = get('dbStatusMessage');
-
-            const borrowerCardNumberInput = get('borrowerCardNumberInput');
-            const borrowerFirstNameInput = get('borrowerFirstNameInput');
-            const borrowerSurnameInput = get('borrowerSurnameInput');
-            const runBorrowerQueryButton = get('runBorrowerQueryButton');
-            const clearResultsButton = get('clearResultsButton');
-
-            let SQL; // This will hold the sql.js database object
-            const DB_NAME = 'BorrowerLookupDB';
-            const DB_VERSION = 1;
-            const OBJECT_STORE_NAME = 'dbFiles';
-            const DB_FILE_KEY = 'borrowerDbFile';
-
-            // Function to open IndexedDB and get a transaction
-            function openIndexedDB() {
-                return new Promise((resolve, reject) => {
-                    const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-                    request.onupgradeneeded = (event) => {
-                        const db = event.target.result;
-                        if (!db.objectStoreNames.contains(OBJECT_STORE_NAME)) {
-                            db.createObjectStore(OBJECT_STORE_NAME);
-                        }
-                    };
-
-                    request.onsuccess = (event) => {
-                        resolve(event.target.result);
-                    };
-
-                    request.onerror = (event) => {
-                        console.error("IndexedDB error:", event.target.errorCode);
-                        reject("Failed to open IndexedDB.");
-                    };
-                });
-            }
-
-            // Function to save ArrayBuffer to IndexedDB
-            async function saveDbToIndexedDB(arrayBuffer) {
-                try {
-                    const db = await openIndexedDB();
-                    const transaction = db.transaction([OBJECT_STORE_NAME], 'readwrite');
-                    const store = transaction.objectStore(OBJECT_STORE_NAME);
-                    const request = store.put(arrayBuffer, DB_FILE_KEY); // Overwrite if key exists
-
-                    return new Promise((resolve, reject) => {
-                        request.onsuccess = () => resolve();
-                        request.onerror = (event) => reject(event.target.error);
-                    });
-                } catch (error) {
-                    throw new Error(`Failed to save DB to IndexedDB: ${error}`);
-                }
-            }
-
-            // Function to load ArrayBuffer from IndexedDB
-            async function loadDbFromIndexedDB() {
-                try {
-                    const db = await openIndexedDB();
-                    const transaction = db.transaction([OBJECT_STORE_NAME], 'readonly');
-                    const store = transaction.objectStore(OBJECT_STORE_NAME);
-                    const request = store.get(DB_FILE_KEY);
-
-                    return new Promise((resolve, reject) => {
-                        request.onsuccess = (event) => {
-                            resolve(event.target.result); // This will be the ArrayBuffer or undefined
-                        };
-                        request.onerror = (event) => reject(event.target.error);
-                    });
-                } catch (error) {
-                    throw new Error(`Failed to load DB from IndexedDB: ${error}`);
-                }
-            }
-
-            // Centralized function to load and parse DB
-            async function attemptLoadDb(fileArrayBuffer = null) {
-                errorMessage.style.display = 'none';
-                loadingIndicator.style.display = 'flex';
-                queryResultContainer.style.display = 'none';
-                queryResultOutput.innerHTML = '';
-                queryResultEmptyMessage.style.display = 'none';
-                runBorrowerQueryButton.disabled = true;
-                clearResultsButton.style.display = 'none'; // Hide clear button on new load/attempt
-                app.patrons = []; // Clear cached patrons on new load/attempt
-
-                try {
-                    // Dynamically load sql-wasm.js if not already loaded
-                    if (typeof initSqlJs === 'undefined') {
-                        await new Promise((resolve, reject) => {
-                            const script = document.createElement('script');
-                            script.src = "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js";
-                            script.onload = resolve;
-                            script.onerror = reject;
-                            document.head.appendChild(script);
-                        });
-                    }
-
-                    // Ensure SQL object is initialized
-                    if (!SQL) {
-                        SQL = await initSqlJs({
-                            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
-                        });
-                        console.log("sql.js initialized successfully.");
-                    }
-
-                    let dbArrayBuffer = fileArrayBuffer;
-
-                    if (!dbArrayBuffer) {
-                        dbStatusMessage.textContent = "Attempting to load database from browser storage...";
-                        dbStatusMessage.style.color = '#555';
-                        dbArrayBuffer = await loadDbFromIndexedDB();
-                    }
-
-                    if (dbArrayBuffer) {
-                        const Uints = new Uint8Array(dbArrayBuffer);
-                        app.loadedDb = new SQL.Database(Uints);
-
-                        if (fileArrayBuffer) { // If it was a new upload, save it
-                            await saveDbToIndexedDB(fileArrayBuffer);
-                            dbStatusMessage.textContent = "Database loaded successfully from file!";
-                        } else {
-                            dbStatusMessage.textContent = "Database loaded from browser storage.";
-                        }
-                        dbStatusMessage.style.color = 'green';
-                        runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
-                        console.log("Database successfully loaded and parsed.");
-                    } else {
-                        dbStatusMessage.textContent = "No database loaded. Please upload a .db file.";
-                        dbStatusMessage.style.color = '#555';
-                        runBorrowerQueryButton.disabled = true;
-                    }
-                } catch (e) {
-                    console.error("Database load error:", e);
-                    displayError("Failed to load or process database: " + e.message);
-                    dbStatusMessage.textContent = "Error loading database.";
-                    dbStatusMessage.style.color = 'red';
-                    runBorrowerQueryButton.disabled = true;
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    app.ui();
-                }
-            }
-
-            // Display Error Message
-            function displayError(message) {
-                errorMessage.style.display = 'block';
-                errorText.textContent = message;
-            }
-
-            // Function to execute a borrower query
-            function executeBorrowerQuery() {
-                queryResultOutput.innerHTML = '';
-                queryResultEmptyMessage.style.display = 'none';
-                errorMessage.style.display = 'none';
-                clearResultsButton.style.display = 'block';
-
-                if (!app.loadedDb) {
-                    displayError("No database loaded. Please upload a .db file first.");
-                    return;
-                }
-
-                const cardNumber = borrowerCardNumberInput.value.trim();
-                const firstName = borrowerFirstNameInput.value.trim();
-                const surname = borrowerSurnameInput.value.trim();
-
-                if (!cardNumber && !firstName && !surname) {
-                    displayError("Please enter at least one search criterion (Card Number, First Name, or Surname).");
-                    return;
-                }
-
-                // Modified query to concatenate firstname and surname
-                let query = "SELECT cardnumber as 'Card Number', " +
-                    "firstname || ' ' || surname AS Name, " +
-                    "phone as Phone, " +
-                    "address || ' ' || city as 'Address', " +
-                    "IFNULL(dateofbirth, '') as 'Date of Birth', " +
-                    "IFNULL(total_fines, '0') as Fines " +
-                    "FROM borrowers WHERE 1 = 1";
-                const params = [];
-
-                if (cardNumber) {
-                    query += " AND cardnumber LIKE ?";
-                    params.push(`%${cardNumber}%`);
-                }
-                if (firstName) {
-                    query += " AND firstname LIKE ?";
-                    params.push(`%${firstName}%`);
-                }
-                if (surname) {
-                    query += " AND surname LIKE ?";
-                    params.push(`%${surname}%`);
-                }
-
-                query += " LIMIT 100;"; // Limit results to prevent overwhelming the browser
-
-                try {
-                    const res = app.loadedDb.exec(query, params);
-
-                    if (res.length > 0) {
-                        const table = document.createElement('table');
-                        table.classList.add('query-result-table');
-                        const thead = document.createElement('thead');
-                        const tbody = document.createElement('tbody');
-
-                        // Create table header
-                        const headerRow = document.createElement('tr');
-                        res[0].columns.forEach(colName => {
-                            const th = document.createElement('th');
-                            th.textContent = colName;
-                            headerRow.appendChild(th);
-                        });
-                        thead.appendChild(headerRow);
-                        table.appendChild(thead);
-
-                        // Populate table body
-                        res[0].values.forEach(row => {
-                            const tr = document.createElement('tr');
-                            row.forEach(cell => {
-                                const td = document.createElement('td');
-                                if (cell === row[0]) {
-                                    tr.addEventListener('click', (e) => {
-                                        get('pat_card').value = cell;
-                                        // TODO: Maybe should just be part of app.ui();
-                                        if (app.set_patron_info()) {
-                                            app.set_bar_ckout();
-                                            get('bar_ckout').focus();
-                                        }
-                                    });
-                                }
-                                td.textContent = cell;
-                                tr.appendChild(td);
-                            });
-                            tbody.appendChild(tr);
-                        });
-                        table.appendChild(tbody);
-                        queryResultOutput.appendChild(table);
-                        queryResultContainer.style.display = 'block';
-
-                        // if there's only one result, we also populate the checkout card number field and focus the barcode field for convenience
-                        if (res[0].values.length === 1) {
-                            get('pat_card').value = res[0].values[0][0];
-                            get('bar_ckout').focus();
-                        }
-                    } else {
-                        queryResultEmptyMessage.style.display = 'block';
-                        queryResultContainer.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("SQL error:", e);
-                    displayError("An SQL error occurred: " + e.message);
-                }
-            }
-
-            // Event Listeners
-            fileInput.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        await attemptLoadDb(e.target.result);
-                    };
-                    reader.onerror = (e) => {
-                        console.error("File reading error:", e);
-                        displayError("Error reading file: " + e.message);
-                    };
-                    reader.readAsArrayBuffer(file);
-                }
-            });
-
-            runBorrowerQueryButton.addEventListener('click', executeBorrowerQuery);
-
-            borrowerFirstNameInput.addEventListener('keydown', function (event) {
-                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
-                if (event.key === 'Enter') {
-                    executeBorrowerQuery();
-                }
-            });
-
-            borrowerSurnameInput.addEventListener('keydown', function (event) {
-                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
-                if (event.key === 'Enter') {
-                    executeBorrowerQuery();
-                }
-            });
-
-            borrowerCardNumberInput.addEventListener('keydown', function (event) {
-                runBorrowerQueryButton.disabled = (borrowerCardNumberInput.value.trim() === '' && borrowerFirstNameInput.value.trim() === '' && borrowerSurnameInput.value.trim() === '');
-                if (event.key === 'Enter') {
-                    executeBorrowerQuery();
-                }
-            });
-
-            clearResultsButton.addEventListener('click', () => {
-                queryResultOutput.innerHTML = '';
-                queryResultEmptyMessage.style.display = 'none';
-                queryResultContainer.style.display = 'none';
-                clearResultsButton.style.display = 'none';
-                errorMessage.style.display = 'none';
-
-                // Clear input fields
-                borrowerCardNumberInput.value = '';
-                borrowerFirstNameInput.value = '';
-                borrowerSurnameInput.value = '';
-            });
-
-            // TODO: Add other triggers here
-            patronCardInput.addEventListener('keydown', (event) => {
-                console.log("Patron card input keydown:", event.key);
-                if (event.key === 'Enter') {
-                    if (app.set_patron_info()) {
-                        app.set_bar_ckout();
-                        get('bar_ckout').focus();
-                    } else {
-                        get('bar_ckout').enabled = false;
-                        patronCardInput.select();
-                    }
-                }
-            });
+            /** Event Listeners **/
+            app.registerListeners();
 
             // Attempt to load DB from IndexedDB on page load
-            await attemptLoadDb();
+            await app.attemptLoadDb();
+            // Side panel is initially hidden; show once we've either loaded the DB or not.
+            // Otherwise, it flashes the no-db view first, then the search inputs once the DB loads
+            app.patronPanel.classList.remove('hidden');
         });
     </script>
 </body>
