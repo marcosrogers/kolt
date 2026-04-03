@@ -48,6 +48,8 @@ Modified by Sam Sowanick, Mark Rogers
 
 &copy; 2026
 
+## Attributions
+Logo from [Koha](https://wiki.koha-community.org/w/images/Koha-egg.svg)
 ## Testing
 End-to-end tests are written with Playwright.
 

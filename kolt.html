@@ -37,7 +37,9 @@
         :root {
             /* = #408540; */
             --default-color-brand: oklch(55% 0.12 144deg);
-            --color-brand: var(--default-color-brand);
+            --color-brand: black;
+            /* start black, will be overridden by JS to the default brand color on load */
+            /*var(--default-color-brand);*/
             --color-brand-bg: oklch(from var(--color-brand) calc(l + 0.41) calc(c * 0.2) h);
             --color-gray-dark: #4D4D4D;
             --color-gray-med-dark: #666;
@@ -52,6 +54,10 @@
             --color-subtle-text: #555;
             --control-radius: 5px;
             --box-radius: 8px;
+        }
+
+        body.onload * {
+            transition: color 1s ease, background-color 1s ease, border-color 1s ease;
         }
 
         html,
@@ -141,6 +147,19 @@
             border-radius: var(--box-radius);
             margin: 10px 0;
             padding: 10px;
+        }
+
+        fieldset fieldset {
+            margin: 0;
+            margin-top: 10px;
+            padding: 0;
+            border-radius: 0;
+            border: 0;
+            border-top: 1px solid var(--color-border);
+
+            & * {
+                padding-left: 0 !important;
+            }
         }
 
         .form-group {
@@ -396,6 +415,7 @@
             color: var(--color-danger);
             padding: 10px;
             box-sizing: border-box;
+            margin-top: 10px;
 
             &::before {
                 content: "Error: ";
@@ -780,7 +800,7 @@
     </style>
 </head>
 
-<body>
+<body class="onload">
     <svg hidden aria-hidden="true" focusable="false" class="hidden">
         <symbol id="koha-logo">
             <g style="stroke-width:0.1">
@@ -818,12 +838,28 @@
                 </svg>
                 Processing database...
             </div>
+            <div class="error-panel hidden">
+            </div>
+            <fieldset id="db-dependent-settings" class="hidden">
+                <legend>Database-Dependent Settings</legend>
+                <div class="form-group">
+                    <input type="checkbox" id="partial-patron-cardnumber-search">
+                    <label for="partial-patron-cardnumber-search">Patron live search in checkout</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="patron-cardnumber-include-name">
+                    <label for="patron-cardnumber-include-name">Include patron name in checkout lookup</label>
+                </div>
+            </fieldset>
         </fieldset>
         <fieldset>
             <legend>Formatting</legend>
             <div class="form-group">
                 <label for="locale-input">Locale (for formatting)</label>
                 <input id="locale-input">
+                <!-- TODO, enforce pattern, will need to use JS:
+                    type="text" pattern="[a-z]{2}(-[A-Z]{2})?" placeholder="en or en-US"
+                    title="Enter a locale code in the format 'en' or 'en-US'. The first part is a 2-letter language code, optionally followed by a hyphen and a 2-letter country code. For example, 'fr' for French or 'fr-FR' for French as used in France." required> -->
                 <p class="breadcrumb"><a href="https://simplelocalize.io/data/locales/" target="_blank">View available
                         locales</a></p>
             </div>
@@ -841,17 +877,11 @@
         <fieldset>
             <legend>Other Settings</legend>
             <div class="form-group">
-                <input type="checkbox" id="partial-patron-cardnumber-search"><label
-                    for="partial-patron-cardnumber-search">Patron live search (requires database).</label>
-            </div>
-            <div class="form-group">
                 <label for="color-brand-picker">Brand Color</label>
                 <input type="color" id="color-brand-picker">
                 <button id="reset-color-button" class="reset-color">↺</button>
             </div>
         </fieldset>
-        <div class="error-panel hidden">
-        </div>
     </div>
     <div class="main-content-wrapper">
         <div id="koha-panel" class="main-panel">
@@ -994,6 +1024,7 @@
         const app = {
             settings: {
                 searchOnPartialCardNumber: false,
+                patronCardnumberIncludeName: false,
                 css: {
                     'color-brand': window.getComputedStyle(document.documentElement).getPropertyValue('--default-color-brand'),
                 },
@@ -1022,6 +1053,7 @@
             entriesKey: "kolt_entries",
             settingsKey: "kolt_settings",
             loadedDb: null,
+            dbIsValid: false,
             patrons: [],
 
             SQL: null, // This will hold the sql.js database object
@@ -1039,9 +1071,11 @@
             dbFileInput: get('db-file'),
             dbStatusMessage: get('db-status-message'),
             loadingIndicator: get('loading-indicator'),
+            dbDependentSettings: get('db-dependent-settings'),
 
             settingsElements: {
                 searchOnPartialCardNumber: get('partial-patron-cardnumber-search'),
+                patronCardnumberIncludeName: get('patron-cardnumber-include-name'),
                 css: {
                     'color-brand': get('color-brand-picker'),
                 },
@@ -1192,13 +1226,16 @@
             },
             // Centralized function to load and parse DB
             attemptLoadDb: async function (fileArrayBuffer = null) {
-                this.settingsErrorPanel.classList.add('hidden');
                 this.loadingIndicator.classList.remove('hidden');
+
+                this.dbDependentSettings.classList.add('hidden');
+                this.settingsErrorPanel.classList.add('hidden');
                 this.queryResultContainer.classList.add('hidden');
-                this.queryResultOutput.innerHTML = '';
                 this.queryResultEmptyMessage.classList.add('hidden');
-                this.runPatronQueryButton.disabled = true;
                 this.clearResultsButton.classList.add('hidden');
+                this.queryResultOutput.innerHTML = '';
+                this.runPatronQueryButton.disabled = true;
+
                 this.patrons = [];
 
                 try {
@@ -1230,7 +1267,7 @@
 
                     if (dbArrayBuffer) {
                         const Uints = new Uint8Array(dbArrayBuffer);
-                        app.loadedDb = new this.SQL.Database(Uints);
+                        this.loadedDb = new this.SQL.Database(Uints);
 
                         if (fileArrayBuffer) { // If it was a new upload, save it
                             await this.saveDbToIndexedDB(fileArrayBuffer);
@@ -1242,13 +1279,14 @@
                         this.dbStatusMessage.classList.remove('error');
                         this.setPatronQueryButton();
                         console.debug("Database successfully loaded and parsed.");
+                        this.dbIsValid = true;
 
                         // Table loaded, but does it have the right structure?
-                        const tableExists = app.loadedDb.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='borrowers';");
+                        const tableExists = this.loadedDb.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='borrowers';");
                         if (tableExists.length === 0) {
                             throw new Error("The loaded database does not contain a 'borrowers' table. Please ensure you have uploaded the correct .db file generated by the create_koc_db.pl script.");
                         }
-                        const tableInfo = app.loadedDb.exec("PRAGMA table_info(borrowers);");
+                        const tableInfo = this.loadedDb.exec("PRAGMA table_info(borrowers);");
                         const expectedFields = ['cardnumber', 'firstname', 'surname', 'phone', 'address', 'city', 'dateofbirth', 'total_fines'];
                         let fieldsArePresent = [];
                         Object.entries(tableInfo[0]?.values).forEach(([key, column]) => fieldsArePresent.push(column[1]));
@@ -1260,6 +1298,7 @@
                     } else {
                         this.dbStatusMessage.textContent = "No database loaded. Please upload a .db file.";
                         this.runPatronQueryButton.disabled = true;
+                        this.dbIsValid = false;
                     }
 
                 } catch (e) {
@@ -1269,6 +1308,7 @@
                     this.dbStatusMessage.classList.add('error');
                     this.dbStatusMessage.classList.remove('success');
                     this.runPatronQueryButton.disabled = true;
+                    this.dbIsValid = false;
                 } finally {
                     this.loadingIndicator.classList.add('hidden');
                     this.ui();
@@ -1403,6 +1443,12 @@
 
                 this.applyStyleSettings();
 
+                // Turn off "on-load" styles, which add a 1-second transition to all colors
+                setTimeout(() => {
+                    document.querySelector('body').classList.toggle('onload', false);
+                }, 1000);
+
+
                 // Make the settings panel reflect the loaded settings
                 this.applySavedSettingsToForm();
 
@@ -1527,20 +1573,25 @@
 
             // TODO: Enable lookup options by name/surname as well, change the patron search table to be able to receive output
             //from a findPatrons() method that returns multiple matches, based on this method.
-            findPatron: function (input, options = { searchOnPartialCardNumber: false, searchAllFields: true }) {
+            findPatron: function (input, options = {
+                searchOnPartialCardNumber: this.settings.searchOnPartialCardNumber,
+                searchAllFields: this.settings.patronCardnumberIncludeName,
+            }) {
+                console.log("Finding patron with input:", input, "and options:", options);
                 const { searchOnPartialCardNumber, searchAllFields } = options;
 
-                if (!this.loadedDb) {
-                    return { error: "No database loaded." };
+                if (!this.dbIsValid) {
+                    return { error: "No valid database loaded." };
                 }
 
                 // Return cached patron name if available
                 if (this.patrons[input]) {
-                    return { numResults: 1, name: this.patrons[input], cardnumber: input };
+                    return { numResults: 1, ...this.patrons[input] };
                 }
                 let query, searchValues;
 
                 if (searchAllFields) {
+                    console.log("Searching all fields for input:", input);
                     // For future expansion: search by name/surname as well
                     // This would require additional handling to determine which field(s) matched and how to display results, especially if there are multiple matches across different fields
                     let tokens = input.split(/\s+/);
@@ -1554,6 +1605,7 @@
                     query += ' ORDER BY surname, firstname';
 
                 } else {
+                    console.log("Searching only cardnumber for input:", input);
                     query = 'SELECT surname, firstname, cardnumber FROM borrowers WHERE cardnumber LIKE ?';
 
                     if (searchOnPartialCardNumber) {
@@ -1574,7 +1626,7 @@
                         // Cache the patron info for future lookups
                         const name = `${row[0]}, ${row[1]}`;
                         const cardnumber = row[2];
-                        this.patrons[cardnumber] = name;
+                        this.patrons[cardnumber] = { firstname: row[1], surname: row[0], cardnumber: cardnumber, name: name };
                         resultPatrons.push({ firstname: row[1], surname: row[0], cardnumber: cardnumber, name: name });
                     });
                     if (resultPatrons.length === 1) {
@@ -1597,11 +1649,13 @@
                 this.patronNameDisplay.classList.toggle("hidden", !content);
             },
 
-            displayPatronInfo: function (options = { searchOnPartialCardNumber: false }) {
+            displayPatronInfo: function () {
 
-                const { searchOnPartialCardNumber } = options;
+                const searchOnPartialCardNumber = this.settings.searchOnPartialCardNumber;
+                const searchAllFields = this.settings.patronCardnumberIncludeName;
+                const options = { searchOnPartialCardNumber, searchAllFields };
 
-                if (!this.loadedDb) {
+                if (!this.dbIsValid) {
                     return true;
                 }
 
@@ -1650,10 +1704,10 @@
             * If selectPatronCardInputOnFailure is true, will focus and select the patron card input if the lookup fails
             * to find a unique patron, to prompt the user to correct their input.
             */
-            handleCheckoutDisplayAndInput: function (options = { focusCheckoutBarcode: false, selectPatronCardInputOnFailure: false, searchOnPartialCardNumber: false, inputChanged: false }) {
-                const { focusCheckoutBarcode, selectPatronCardInputOnFailure, searchOnPartialCardNumber, inputChanged } = options;
+            handleCheckoutDisplayAndInput: function (options = { focusCheckoutBarcode: false, selectPatronCardInputOnFailure: false, inputChanged: false }) {
+                const { focusCheckoutBarcode, selectPatronCardInputOnFailure, inputChanged } = options;
 
-                const patronInfo = this.displayPatronInfo(options);
+                const patronInfo = this.displayPatronInfo();
 
                 let barcodeDisabled = this.checkoutBarcodeInput.disabled;
                 console.debug("Barcode input state before lookup:", barcodeDisabled);
@@ -1716,8 +1770,8 @@
 
                     ['ts', 'type', 'patCard', 'itemBarcode', 'remove'].forEach((field) => {
                         let td = document.createElement("td");
-                        if (field === 'patCard' && this.loadedDb && e[field]) {
-                            let patron = this.findPatron(e[field]);
+                        if (field === 'patCard' && this.dbIsValid && e[field]) {
+                            let patron = this.findPatron(e[field], { searchOnPartialCardNumber: false, searchAllFields: false });
                             td.innerText = patron.name ?? "Unknown patron: " + e[field];
                         } else if (field === 'remove') {
                             let removeButton = document.createElement("button");
@@ -1783,8 +1837,8 @@
                 this.clearResultsButton.classList.remove('hidden');
                 this.queryResultTable.classList.add('hidden');
 
-                if (!this.loadedDb) {
-                    this.displayError("No database loaded. Please upload a .db file first.", this.queryErrorPanel);
+                if (!this.dbIsValid) {
+                    this.displayError("No valid database loaded. Please upload a valid .db file first.", this.queryErrorPanel);
                     return;
                 }
 
@@ -1971,8 +2025,9 @@
             },
 
             ui: function () {
-                this.patronSearchDBUnavailable.classList.toggle('hidden', this.loadedDb);
-                this.patronSearchInputs.classList.toggle('hidden', !this.loadedDb);
+                this.patronSearchDBUnavailable.classList.toggle('hidden', this.dbIsValid);
+                this.patronSearchInputs.classList.toggle('hidden', !this.dbIsValid);
+                this.dbDependentSettings.classList.toggle('hidden', !this.dbIsValid);
 
                 this.populateCirculationTable();
                 this.populateDataFile();
