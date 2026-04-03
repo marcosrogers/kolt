@@ -31,13 +31,13 @@ This tool does **not** save data to Koha automatically. Rather, it generates a K
 If you don't see some of these options in Koha, you may not have the necessary permissions. In that case email the file to your system administrator, or someone on your team with "Super Libarian" permissions.
 
 ## Compatibility
-This tool was developed for the Chrome Web Browser on Linux Mint 21.3 Cinnamon, but should work with most browsers on most operating systems.
+This tool is automatically tested for core functionality for the following web browsers and should work on the latest version of each. If you encounter issues on any of these platforms, please report it.
 
-| OS | Chrome | Firefox | Edge |
-|---|---|---|---|
-| Linux Mint | ✅ | ✅ | N/A |
-| Ubuntu Linux | ✅ | ❓ | N/A |
-| Windows 10 | ✅ | ❓ | ✅ |
+- Chromium (Chrome, Edge, etc.)
+- Firefox
+- Webkit (Safari)
+- Mobile Chrome
+- Mobile Safari
 
 ## Contributors
 kolt v0.1 created by Kendall Purser
@@ -47,3 +47,9 @@ and the [Library Consortium of Eastern Idaho](https://lcei.lili.org/)
 Modified by Sam Sowanick, Mark Rogers
 
 &copy; 2026
+
+## Testing
+End-to-end tests are written with Playwright.
+
+- Run all e2e tests: `npm run test:e2e`
+- Run all e2e tests in the UI: `npm run test:e2e:ui`
