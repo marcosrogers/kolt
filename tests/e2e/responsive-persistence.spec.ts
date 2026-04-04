@@ -97,17 +97,23 @@ test('responsive: undo/redo button group moves to second line when koha panel is
 
 test('persistence: settings are saved across refreshes', async ({ page }) => {
     await page.goto('/kolt.html');
+    await loadFixtureDb(page);
 
-    await page.getByRole('button', { name: /open settings/i }).click();
     const partialSearch = page.locator('#partial-patron-cardnumber-search');
+    const includeNameInPartialSearch = page.locator('#patron-cardnumber-include-name');
 
     await expect(partialSearch).not.toBeChecked();
     await partialSearch.check();
     await expect(partialSearch).toBeChecked();
 
+    await expect(includeNameInPartialSearch).not.toBeChecked();
+    await includeNameInPartialSearch.check();
+    await expect(includeNameInPartialSearch).toBeChecked();
+
     await page.reload();
     await page.getByRole('button', { name: /open settings/i }).click();
-    await expect(page.locator('#partial-patron-cardnumber-search')).toBeChecked();
+    await expect(partialSearch).toBeChecked();
+    await expect(includeNameInPartialSearch).toBeChecked();
 });
 
 test('persistence: pending circulations are saved across refreshes', async ({ page }) => {
